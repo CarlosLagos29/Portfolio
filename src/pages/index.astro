@@ -1,0 +1,43 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Experience from "../components/Experience/experience.astro";
+import Footer from "../components/Footer/footer.astro";
+import Head from "../components/Head/head.astro";
+import Navbar from "../components/Navbar/navbar.astro";
+import Proyects from "../components/Proyects/proyects.astro";
+import Contact from "../components/Contact/contact.astro"
+---
+
+<Layout>
+	<main>
+		<nav class="fixed top-0 w-full z-50 transition-opacity duration-500">
+			<Navbar />
+		</nav>
+		<div class="flex flex-col justify-between items-center h-[200vh] w-[90%] mt-28">
+			<section id="head">
+				<Head/>
+			</section>
+
+			<section id="experience">
+				<Experience/>
+			</section>
+
+			<section id="proyects">
+				<Proyects />
+			</section>
+			
+			<section id="contact">
+				<Contact />
+			</section>
+		</div>
+		<footer>
+			<Footer />
+		</footer>
+	</main>
+</Layout>
+
+<script>
+	window.scroll({
+		behavior: 'smooth' 
+	})
+</script>
