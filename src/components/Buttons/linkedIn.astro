@@ -1,6 +1,14 @@
+---
+interface Props {
+    color: string;
+}
+
+const { color } = Astro.props;
+---
+
 <a href="https://www.linkedin.com/in/carlos-lagos-9b8030288/" target="_blank">
     <img
-        src="https://img.icons8.com/?size=100&id=98960&format=png&color=000000"
+        src=`https://img.icons8.com/?size=100&id=98960&format=png&color=${color}`
         class="size-full"
         alt="https://www.linkedin.com/in/carlos-lagos-9b8030288/"
     />

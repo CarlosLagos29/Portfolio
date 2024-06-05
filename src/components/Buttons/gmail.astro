@@ -1,6 +1,14 @@
+---
+interface Props {
+    color: string;
+}
+
+const { color } = Astro.props;
+---
+
 <a href="mailto:lagosc252@gmail.com" target="_blank">
     <img
-        src="https://img.icons8.com/?size=100&id=38158&format=png&color=000000"
+        src=`https://img.icons8.com/?size=100&id=38158&format=png&color=${color}`
         class="size-full"
         alt="lagosc252@gmail.com"
     />
