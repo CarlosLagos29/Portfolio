@@ -1,15 +1,16 @@
 ---
 interface Props {
     color: string;
+    hover?: string;
 }
 
-const { color } = Astro.props;
+const { color, hover } = Astro.props;
 ---
 
 <a href="https://wa.me/+5491155689815" target="_blank">
     <img
         src=`https://img.icons8.com/?size=100&id=ZeQPTbzIF4jw&format=png&color=${color}`
-        class="size-full"
+        class=`size-full ${hover}`
         alt="https://wa.me/+5491155689815"
     />
 </a>

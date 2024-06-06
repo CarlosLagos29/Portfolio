@@ -1,3 +1,80 @@
-<div>
-    <h1>Soy el head</h1>
+---
+import GitHub from "../Buttons/gitHub.astro";
+import Gmail from "../Buttons/gmail.astro";
+import WhatsApp from "../Buttons/whatsApp.astro";
+import LinkedIn from "../Buttons/linkedIn.astro";
+import Stack from "../Stack/stack.astro";
+---
+
+<div class="w-full flex flex-col">
+    <section class="flex justify-end mb-2">
+        <span class="rounded-full font-bold bg-green-700 text-green-300 px-2 py-1 text-sm"
+            >Disponible para trabajar</span
+        >
+    </section>
+
+    <h1 class="text-3xl md:text-4xl font-extrabold">Hola! soy Carlos</h1>
+
+    <h2 class="text-md md:text-xl text-pretty mt-2">
+        <span class="text-blue-300">Buenos</span> Aires, <span
+            class="text-blue-300">Argentina</span
+        > 🧉.
+        <span class="text-yellow-300">Desarrollador Full Stack 💻</span>
+    </h2>
+
+    <article class="mt-6">
+        <p class="text-md md:text-xl text-pretty">
+            Especializado tanto en Front-end como Back-end. Conocimientos en
+            metodologías ágiles, GIT, estructura de datos, algoritmos,
+            frameworks CSS, entre otros.
+        </p>
+        <p class="text-md md:text-xl text-pretty mt-1">
+            Me destaco por mi habilidad para trabajar eficientemente en equipo,
+            resolver conflictos de manera ágil y adaptarme rápidamente a nuevos
+            entornos. Disfruto aplicando mis conocimientos y siempre estoy
+            ansioso por aprender más para mejorar constantemente en el
+            fascinante mundo de la tecnología.
+        </p>
+        <p class="text-md md:text-xl text-pretty mt-1">
+            Con enfoque lógico, facilidad de adaptación, comunicación,
+            resolución de problemas y buen trabajo en equipo .
+        </p>
+    </article>
+    <nav class="flex justify-center items-center gap-8 mt-5">
+        <button
+            class="w-14 border border-white rounded-full hover:bg-white hover:border-slate-950 transition duration-500"
+        >
+            <GitHub
+                color="FFFFFF"
+                hover="filter hover:invert transition duration-500 p-2 "
+            />
+        </button>
+        <button
+            class="w-14 border border-white rounded-full hover:bg-white hover:border-slate-950 transition duration-500"
+        >
+            <Gmail
+                color="FFFFFF"
+                hover="filter hover:invert transition duration-500 p-2 "
+            />
+        </button>
+        <button
+            class="w-14 border border-white rounded-full hover:bg-white hover:border-slate-950 transition duration-500"
+        >
+            <WhatsApp
+                color="FFFFFF"
+                hover="filter hover:invert transition duration-500 p-2 "
+            />
+        </button>
+        <button
+            class="w-14 border border-white rounded-full hover:bg-white hover:border-slate-950 transition duration-500"
+        >
+            <LinkedIn
+                color="FFFFFF"
+                hover="filter hover:invert transition duration-500 p-2 "
+            />
+        </button>
+    </nav>
+    <section id="stack" class="mt-32">
+        <Stack/>
+    </section>
 </div>

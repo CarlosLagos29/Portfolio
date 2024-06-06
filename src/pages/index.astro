@@ -6,6 +6,7 @@ import Head from "../components/Head/head.astro";
 import Navbar from "../components/Navbar/navbar.astro";
 import Proyects from "../components/Proyects/proyects.astro";
 import Contact from "../components/Contact/contact.astro"
+import Stack from "../components/Stack/stack.astro";
 ---
 
 <Layout>
@@ -13,7 +14,7 @@ import Contact from "../components/Contact/contact.astro"
 		<nav class="fixed top-0 w-full z-50 transition-opacity duration-500">
 			<Navbar />
 		</nav>
-		<div class="flex flex-col justify-between items-center mx-auto h-[200vh] w-[90%] mt-28">
+		<div class="flex flex-col justify-between items-center mx-auto min-h-[200vh] w-[80%] mt-32 md:mt-40">
 			<section id="head">
 				<Head/>
 			</section>
