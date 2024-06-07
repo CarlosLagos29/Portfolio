@@ -1,3 +1,16 @@
+---
+import { PROYECTS } from "./mockProyects";
+import ProyectCard from "./proyectCard.astro";
+---
+
 <div>
-    <h1>Soy los proyectos</h1>
+    <h1 class="text-3xl font-semibold mb-6">Proyectos</h1>
+
+        <section class="flex flex-col items-center h-[100vh] overflow-auto">
+            {
+                PROYECTS.map((proyect, index) => (
+                    <ProyectCard {...proyect} index={index} />
+                ))
+            }   
+        </section>
 </div>

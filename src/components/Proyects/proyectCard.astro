@@ -1,0 +1,79 @@
+---
+type Props = import("./mockProyects").Props;
+
+const { title, subtitle, date, description, link, repo, tech, img, index } =
+    Astro.props;
+
+const par = index % 2;
+---
+
+<div
+    class="flex flex-col rounded-2xl border border-white border-solid border-5 p-5 my-4 xl:w-[80%]"
+>
+    <h2 class=`flex ${par !== 0? "lg:justify-start": "lg:justify-end"} w-full opacity-80`>{date}</h2>
+
+    <section
+        class=`flex flex-col ${par !== 0? "md:flex-row-reverse": "md:flex-row"} justify-center items-center gap-y-3 my-3`
+    >
+        <span class="flex justify-center items-center md:w-[50%]">
+            <img
+                class="rounded-xl items-center size-full max-w-[500px] max-h-[500px]"
+                src={img}
+                alt="Proyect image"
+            />
+        </span>
+        <article class="md:w-[50%] flex flex-col">
+            <h1
+                class="flex items-center mb-1 text-2xl font-semibold gap-3"
+            >
+                {title}
+            </h1>
+            <h2 class="text-yellow-200">
+                {subtitle}
+            </h2>
+            <p class="text-pretty my-9 ">{description}</p>
+            <ul class="flex flex-wrap gap-2 mt-2">
+                Tecnologias usadas:
+                {
+                    tech.map((t: string) => (
+                        <li class=" bg-slate-50 rounded-full text-slate-950 px-2">
+                            {t}
+                        </li>
+                    ))
+                }
+            </ul>
+        </article>
+    </section>
+    {
+    repo &&
+     
+    <a
+        href={repo}
+        target="_blank"
+        class="rounded-full border border-white flex justify-center items-center p-2 gap-x-2 hover:scale-95 duration-500 mt-3"
+    >
+        <img
+            src={`https://img.icons8.com/?size=100&id=ARy6tFUfwclb&format=png&color=FFFFFF`}
+            class="size-6"
+            alt={repo}
+        />
+        Repositorio
+    </a>
+    }
+    {
+        link && (
+            <a
+                href={link}
+                target="_blank"
+                class="rounded-full border border-white flex justify-center items-center p-2 gap-x-2 hover:scale-95 duration-500 mt-3"
+            >
+                 <img
+            src={`https://img.icons8.com/?size=100&id=IPsRujKMhxgk&format=png&color=FFFFFF`}
+            class="size-6"
+            alt={link}
+            />
+                Deploy
+            </a>
+        )
+    }
+</div>

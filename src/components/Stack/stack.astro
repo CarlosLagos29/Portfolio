@@ -1,12 +1,12 @@
 <div class="flex flex-col justify-center items-center">
-    <h1 class="text-3xl font-extrabold mb-9">Mis tecnologias</h1>
+    <h1 class="text-3xl font-bold mb-9">Mis tecnologias</h1>
     <section class="overflow-hidden w-full">
-        <section class="flex animate-scroll">
-            <span class="marquee-content flex space-x-4">
+        <section class="flex animate-mobile md:animate-scroll">
+            <span class="flex items-center space-x-4">
                 <img
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/800px-JavaScript-logo.png"
                     alt="Javascript"
-                    class="size-20"
+                    class="size-20 rounded-lg"
                 />
                 <img
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/2048px-Typescript_logo_2020.svg.png"
@@ -74,7 +74,7 @@
                 <img
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/800px-JavaScript-logo.png"
                     alt="Javascript"
-                    class="size-20"
+                    class="size-20 rounded-lg"
                 />
                 <img
                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/2048px-Typescript_logo_2020.svg.png"
@@ -143,22 +143,3 @@
         </section>
     </section>
 </div>
-
-<style scoped>
-    @keyframes scroll {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(-50%);
-        }
-    }
-
-    .animate-scroll {
-        animation: scroll 40s linear infinite;
-    }
-
-    .marquee-content {
-        display: flex;
-    }
-</style>
