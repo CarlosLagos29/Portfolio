@@ -13,19 +13,18 @@ import Proyects from "../components/Proyects/proyects.astro";
 			<Navbar />
 		</nav>
 		<div class="flex flex-col gap-y-40 items-center mx-auto w-[80%] mt-32 mb-20 md:mt-40">
-			<section id="head">
-				<Head/>
+			<section id="head" class="animate-on-scroll opacity-0 transform translate-y-10">
+			  <Head />
 			</section>
-
-			<section id="experience">
-				<Experience/>
+		  
+			<section id="experience" class="animate-on-scroll opacity-0 transform translate-y-10">
+			  <Experience />
 			</section>
-
-			<section id="proyects">
-				<Proyects />
+		  
+			<section id="proyects" class="animate-on-scroll opacity-0 transform translate-y-10">
+			  <Proyects />
 			</section>
-			
-		</div>
+		  </div>
 		<footer id="contact">
 			<Footer />
 		</footer>
@@ -33,7 +32,22 @@ import Proyects from "../components/Proyects/proyects.astro";
 </Layout>
 
 <script>
-	window.scroll({
-		behavior: 'smooth' 
-	})
-</script>
+	document.addEventListener('DOMContentLoaded', function () {
+	  const targets = document.querySelectorAll('.animate-on-scroll');
+  
+	  const observer = new IntersectionObserver((entries, observer) => {
+		entries.forEach(entry => {
+		  if (entry.isIntersecting) {
+			entry.target.classList.add('animate-fadeInDown');
+			observer.unobserve(entry.target);
+		  }
+		});
+	  }, {
+		threshold: 0.7
+	  });
+  
+	  targets.forEach(target => observer.observe(target));
+	});
+  </script>
+
+

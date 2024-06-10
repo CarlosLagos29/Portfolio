@@ -12,10 +12,21 @@ export default {
 				'0%': { transform: 'translateX(0)' },
 				'100%': { transform: 'translateX(-250%)' },
 			  },
+			  fadeInDown: {
+				'from': {
+				  opacity: '0',
+				  transform: 'translateY(-100px)',
+				},
+				'to': {
+				  opacity: '1',
+				  transform: 'translateY(0)',
+				},
+			  },
 			},
 			animation: {
 			  scroll: 'scroll 20s linear infinite',
 			  mobile: 'mobile 20s linear infinite',
+			  fadeInDown: 'fadeInDown 1s ease-out forwards',
 			},
 		  },
 	},
