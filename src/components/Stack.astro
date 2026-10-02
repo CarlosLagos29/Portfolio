@@ -1,19 +1,52 @@
 ---
+import SectionHeader from "./SectionHeader.astro";
+import Tags from "./Tags.astro";
 import { STACK } from "../data/stack";
+import { getDictionary } from "../i18n";
+import type { Locale } from "../types";
 
-// La lista va duplicada para que el carrusel haga un loop continuo
-const logos = [...STACK, ...STACK];
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getDictionary(locale).stack;
+
+const main = STACK.filter((g) => g.id === "frontend" || g.id === "backend");
+const secondary = STACK.filter((g) => g.id !== "frontend" && g.id !== "backend");
+const borders = { frontend: "border-cyan", backend: "border-accent" } as const;
 ---
 
-<div class="flex flex-col justify-center items-center">
-    <h1 class="text-3xl font-bold mb-9">Mis tecnologias</h1>
-    <section class="overflow-hidden w-full">
-        <section class="flex animate-mobile md:animate-scroll">
-            <span class="flex items-center space-x-4">
-                {logos.map((tech) => (
-                    <img src={tech.logo} alt={tech.name} class={tech.class ?? "size-20"} />
-                ))}
-            </span>
-        </section>
-    </section>
-</div>
+<section id="stack" aria-labelledby="stack-title" class="container-page py-16">
+    <SectionHeader id="stack-title" number="01" title={t.title} subtitle={t.subtitle} />
+
+    <div class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))]">
+        {main.map((group) => {
+            const info = t.groups[group.id as "frontend" | "backend"];
+            return (
+                <article
+                    class:list={[
+                        "panel card reveal p-6",
+                        borders[group.id as keyof typeof borders],
+                    ]}
+                >
+                    <div class="mb-4 flex items-center justify-between gap-4">
+                        <h3 class="font-pixel text-sm">{info.title}</h3>
+                        <span class="font-pixel text-[0.6rem] text-ink-muted">{info.slot}</span>
+                    </div>
+                    <p class="mb-5 text-ink-soft">{info.description}</p>
+                    <Tags items={group.items} />
+                </article>
+            );
+        })}
+    </div>
+
+    <div class="mt-8 grid gap-8 grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))]">
+        {secondary.map((group) => (
+            <article class="panel card reveal p-5">
+                <h3 class="mb-4 font-pixel text-[0.7rem]">{t.groups[group.id].title}</h3>
+                <Tags items={group.items} />
+            </article>
+        ))}
+    </div>
+</section>

@@ -1,0 +1,65 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+import Tags from "./Tags.astro";
+import { EXPERIENCE } from "../data/experience";
+import { formatRange, getDictionary, localize } from "../i18n";
+import type { Locale } from "../types";
+
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getDictionary(locale).experience;
+const jobs = [...EXPERIENCE].sort((a, b) => b.level - a.level);
+---
+
+<section id="experience" aria-labelledby="experience-title" class="container-page py-16">
+    <SectionHeader id="experience-title" number="02" title={t.title} subtitle={t.subtitle} />
+
+    <ol class="flex flex-col gap-10">
+        {jobs.map((job) => (
+            <li class="panel card reveal">
+                <header class="flex flex-wrap items-start justify-between gap-4 border-b-4 border-line p-6">
+                    <div>
+                        <span class="mb-4 inline-block bg-accent px-2 py-1 font-pixel text-[0.6rem] text-bg">
+                            {t.level} {String(job.level).padStart(2, "0")}
+                        </span>
+                        <h3 class="font-pixel text-[clamp(0.9rem,2vw,1.15rem)] leading-snug">
+                            {job.company}
+                        </h3>
+                        <p class="mt-2 text-xl text-cyan">{localize(job.role, locale)}</p>
+                    </div>
+                    <p class="font-pixel text-[0.6rem] leading-6 text-ink-muted">
+                        {formatRange(job.start, job.end, locale)}
+                    </p>
+                </header>
+
+                <div class="flex flex-col gap-8 p-6">
+                    {job.stages.map((stage) => (
+                        <div>
+                            {stage.title && (
+                                <h4 class="text-xl font-semibold text-ink">
+                                    {localize(stage.title, locale)}
+                                </h4>
+                            )}
+                            {stage.meta && (
+                                <p class="mt-1 text-ink-muted">{localize(stage.meta, locale)}</p>
+                            )}
+                            <ul class="pixel-list mt-4 flex flex-col gap-2 text-ink-soft">
+                                {stage.achievements.map((item) => (
+                                    <li>{localize(item, locale)}</li>
+                                ))}
+                            </ul>
+                            {stage.tags && (
+                                <div class="mt-5">
+                                    <Tags items={stage.tags} />
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </li>
+        ))}
+    </ol>
+</section>

@@ -1,32 +1,49 @@
+export type Locale = "es" | "en";
+
+/** Texto en los dos idiomas del sitio */
+export interface Localized {
+    es: string;
+    en: string;
+}
+
+/** Fecha en formato "AAAA-MM" */
+export type YearMonth = `${number}-${number}`;
+
+export interface StackGroup {
+    id: "frontend" | "backend" | "databases" | "aws" | "web3" | "tools";
+    items: string[];
+}
+
+export interface ExperienceStage {
+    title?: Localized;
+    meta?: Localized;
+    achievements: Localized[];
+    tags?: string[];
+}
+
 export interface Experience {
-    title: string;
-    date: string;
-    description: string;
-    tech?: string[];
-    methodologies?: string[];
+    level: number;
+    company: string;
+    role: Localized;
+    start: YearMonth;
+    end: YearMonth;
+    stages: ExperienceStage[];
 }
 
 export interface Project {
     title: string;
-    subtitle: string;
-    date: string;
-    description: string;
-    link?: string;
+    description: Localized;
+    tags: string[];
     repo?: string;
-    tech: string[];
-    img: string;
+    demo?: string;
+    /** muestra el badge "EN REMODELACIÓN" */
+    remodel?: boolean;
+    /** captura del proyecto; si falta se muestra un placeholder */
+    image?: string;
 }
 
-export interface Social {
-    name: string;
-    href: string;
-    /** id del ícono en icons8 */
-    icon: string;
-}
-
-export interface Tech {
-    name: string;
-    logo: string;
-    /** clases del logo; por defecto "size-20" */
-    class?: string;
+export interface Training {
+    period: Localized;
+    title: Localized;
+    place: Localized;
 }

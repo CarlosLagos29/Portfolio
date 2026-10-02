@@ -1,0 +1,29 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+import { TRAINING } from "../data/training";
+import { getDictionary, localize } from "../i18n";
+import type { Locale } from "../types";
+
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getDictionary(locale).training;
+---
+
+<section id="training" aria-labelledby="training-title" class="container-page py-16">
+    <SectionHeader id="training-title" number="04" title={t.title} subtitle={t.subtitle} />
+
+    <ul class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))]">
+        {TRAINING.map((item) => (
+            <li class="panel card reveal p-6">
+                <p class="mb-4 font-pixel text-[0.6rem] text-cyan">
+                    {localize(item.period, locale)}
+                </p>
+                <h3 class="text-xl font-semibold">{localize(item.title, locale)}</h3>
+                <p class="mt-2 text-ink-muted">{localize(item.place, locale)}</p>
+            </li>
+        ))}
+    </ul>
+</section>

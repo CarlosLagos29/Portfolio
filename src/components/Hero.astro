@@ -1,50 +1,88 @@
 ---
-import SocialLink from "./SocialLink.astro";
-import Stack from "./Stack.astro";
-import { SOCIALS } from "../data/socials";
+import PlayerCard from "./PlayerCard.astro";
+import Stars from "./Stars.astro";
+import { getDictionary } from "../i18n";
+import type { Locale } from "../types";
+
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getDictionary(locale).hero;
 ---
 
-<div class="w-full flex flex-col">
-    <section class="flex justify-end mb-2">
-        <span class="rounded-full border border-lime-300 text-lime-300 px-2 py-1 text-sm">
-            Disponible para trabajar
-        </span>
-    </section>
+<section id="hero" class="relative isolate py-16 sm:py-24">
+    <Stars />
+    <div class="container-page grid items-center gap-12 grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))]">
+        <div class="reveal">
+            <p class="mb-6 font-pixel text-xs text-cyan">
+                {t.label}
+                <span class="block-cursor" aria-hidden="true"></span>
+            </p>
 
-    <h1 class="text-3xl md:text-4xl font-extrabold">Hola! soy Carlos</h1>
+            <h1 class="font-pixel text-[clamp(2rem,6vw,3.75rem)] leading-tight [text-shadow:5px_5px_0_#000]">
+                CARLOS
+                <br />
+                LAGOS
+            </h1>
 
-    <h2 class="text-md md:text-xl text-pretty mt-2">
-        <span class="text-blue-300">Buenos</span> Aires,{" "}
-        <span class="text-blue-300">Argentina</span> 🧉.
-        <span class="text-yellow-300">Desarrollador Full Stack 💻</span>
-    </h2>
+            <h2
+                class="mt-6 min-h-[2.5em] font-pixel text-[clamp(0.7rem,1.6vw,0.95rem)] leading-relaxed text-cyan"
+                aria-label={t.role}
+            >
+                <span aria-hidden="true">
+                    <span data-typewriter data-phrases={JSON.stringify(t.phrases)}>
+                        {t.phrases[0]}
+                    </span>
+                    <span class="block-cursor"></span>
+                </span>
+            </h2>
 
-    <article class="mt-6">
-        <p class="text-md md:text-xl text-pretty">
-            Especializado tanto en Front-end como Back-end. Conocimientos en metodologías ágiles,
-            GIT, estructura de datos, algoritmos, frameworks CSS, entre otros.
-        </p>
-        <p class="text-md md:text-xl text-pretty mt-1">
-            Me destaco por mi habilidad para trabajar eficientemente en equipo, resolver conflictos
-            de manera ágil y adaptarme rápidamente a nuevos entornos. Disfruto aplicando mis
-            conocimientos y siempre estoy ansioso por aprender más para mejorar constantemente en el
-            fascinante mundo de la tecnología.
-        </p>
-        <p class="text-md md:text-xl text-pretty mt-1">
-            Con enfoque lógico, facilidad de adaptación, comunicación, resolución de problemas y
-            buen trabajo en equipo .
-        </p>
-    </article>
-    <nav class="flex justify-center items-center gap-8 mt-5">
-        {SOCIALS.map((social) => (
-            <SocialLink
-                social={social}
-                class="group w-14 border border-white rounded-full hover:bg-white hover:border-slate-950 transition duration-500"
-                imgClass="group-hover:invert transition duration-500 p-2"
-            />
-        ))}
-    </nav>
-    <section id="stack" class="mt-32">
-        <Stack />
-    </section>
-</div>
+            <p class="mt-6 max-w-[60ch] text-xl text-ink-soft">{t.paragraph}</p>
+
+            <div class="mt-8 flex flex-wrap gap-4">
+                <a href="#experience" class="btn btn-primary">
+                    {t.ctaPrimary}
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    {t.ctaSecondary}
+                </a>
+            </div>
+        </div>
+
+        <PlayerCard locale={locale} />
+    </div>
+</section>
+
+<script>
+    const TYPE_MS = 75;
+    const PAUSE_MS = 2000;
+
+    const el = document.querySelector<HTMLElement>("[data-typewriter]");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (el && !reduceMotion) {
+        const phrases: string[] = JSON.parse(el.dataset.phrases ?? "[]");
+        let phrase = 0;
+        let chars = phrases[0]?.length ?? 0;
+        let deleting = true;
+
+        const tick = () => {
+            chars += deleting ? -1 : 1;
+            el.textContent = phrases[phrase].slice(0, chars);
+
+            if (deleting && chars === 0) {
+                deleting = false;
+                phrase = (phrase + 1) % phrases.length;
+            } else if (!deleting && chars === phrases[phrase].length) {
+                deleting = true;
+                setTimeout(tick, PAUSE_MS);
+                return;
+            }
+            setTimeout(tick, TYPE_MS);
+        };
+
+        setTimeout(tick, PAUSE_MS);
+    }
+</script>

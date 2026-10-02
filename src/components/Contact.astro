@@ -1,0 +1,49 @@
+---
+import { CONTACT } from "../data/contact";
+import { getDictionary } from "../i18n";
+import type { Locale } from "../types";
+
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getDictionary(locale).contact;
+---
+
+<section id="contact" aria-labelledby="contact-title" class="container-page py-16">
+    <div class="panel reveal mx-auto max-w-3xl border-accent p-8 text-center sm:p-12">
+        <h2
+            id="contact-title"
+            class="continue-title font-pixel text-[clamp(1.25rem,4vw,2.25rem)] leading-snug"
+        >
+            {t.title}
+        </h2>
+        <p class="mx-auto mt-6 max-w-[50ch] text-xl text-ink-soft">{t.text}</p>
+
+        <div class="mt-10 flex flex-wrap justify-center gap-4">
+            <a href={`mailto:${CONTACT.email}`} class="btn btn-primary">
+                {t.email}
+            </a>
+            <a
+                href={CONTACT.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-secondary"
+            >
+                {t.linkedin}
+            </a>
+            <a
+                href={CONTACT.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn btn-secondary"
+            >
+                {t.github}
+            </a>
+            <a href={CONTACT.cv} download class="btn btn-secondary border-cyan text-cyan">
+                {t.cv}
+            </a>
+        </div>
+    </div>
+</section>

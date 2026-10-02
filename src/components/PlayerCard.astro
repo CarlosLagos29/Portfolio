@@ -1,0 +1,42 @@
+---
+import Avatar from "./Avatar.astro";
+import { getDictionary } from "../i18n";
+import type { Locale } from "../types";
+
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getDictionary(locale).hero;
+---
+
+<aside class="panel card reveal" aria-label={t.player}>
+    <div class="flex items-center justify-between border-b-4 border-line px-4 py-3">
+        <span class="font-pixel text-[0.65rem] text-accent">{t.player}</span>
+        <span class="flex items-center gap-2 font-pixel text-[0.6rem] text-online">
+            <span class="blink inline-block size-2.5 bg-online" aria-hidden="true"></span>
+            {t.online}
+        </span>
+    </div>
+
+    <div class="flex justify-center bg-avatar-bg py-8">
+        <Avatar />
+    </div>
+
+    <dl class="px-4 pt-2">
+        {t.stats.map((stat) => (
+            <div class="flex flex-wrap justify-between gap-x-4 border-b-2 border-dotted border-line py-2">
+                <dt class="font-pixel text-[0.6rem] leading-6 text-ink-muted">{stat.key}</dt>
+                <dd class="text-ink">{stat.value}</dd>
+            </div>
+        ))}
+    </dl>
+
+    <div class="p-4">
+        <p class="mb-2 font-pixel text-[0.55rem] text-ink-soft">{t.loading}</p>
+        <div class="h-5 border-4 border-line bg-bg" aria-hidden="true">
+            <div class="loading-bar h-full bg-accent"></div>
+        </div>
+    </div>
+</aside>

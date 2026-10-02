@@ -1,0 +1,43 @@
+---
+// Avatar pixel art 16×16 dibujado con CSS grid. Cada letra es un color; "." es transparente.
+const MAP = [
+    "....KKKKKKKK....",
+    "...KHHHHHHHHK...",
+    "..KHHHHHHHHHHK..",
+    "..KHHHHHHHHHHK..",
+    "..KHSSSSSSSSHK..",
+    "..KSSSSSSSSSSK..",
+    "..KSSESSSSESSK..",
+    "..KSSESSSSESSK..",
+    "..KSSSSSSSSSSK..",
+    "..KsSSSKKSSSsK..",
+    "...KsSSSSSSsK...",
+    "....KKSSSSKK....",
+    "..KKCCKSSKCCKK..",
+    ".KCCCCCKKCCCCCK.",
+    ".KCCcCCCCCCcCCK.",
+    ".KCCcCCYYCCcCCK.",
+];
+
+const COLORS: Record<string, string> = {
+    K: "#14121f",
+    H: "#3b2a20",
+    S: "#f2b880",
+    s: "#d9965b",
+    E: "#14121f",
+    C: "#45d0e8",
+    c: "#1f8aa0",
+    Y: "var(--color-accent)",
+};
+
+const cells = MAP.join("").split("");
+---
+
+<div class="avatar grid grid-cols-[repeat(16,13px)] grid-rows-[repeat(16,13px)]" aria-hidden="true">
+    {cells.map((cell) => (
+        <span
+            class:list={[{ eye: cell === "E" }]}
+            style={COLORS[cell] ? `background:${COLORS[cell]}` : undefined}
+        />
+    ))}
+</div>

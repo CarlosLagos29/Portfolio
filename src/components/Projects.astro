@@ -1,0 +1,74 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+import Tags from "./Tags.astro";
+import { PROJECTS } from "../data/projects";
+import { getDictionary, localize } from "../i18n";
+import type { Locale } from "../types";
+
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getDictionary(locale).projects;
+---
+
+<section id="projects" aria-labelledby="projects-title" class="container-page py-16">
+    <SectionHeader id="projects-title" number="03" title={t.title} subtitle={t.subtitle} />
+
+    <div class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))]">
+        {PROJECTS.map((project) => (
+            <article class="panel card reveal flex flex-col">
+                {project.image ? (
+                    <img
+                        src={project.image}
+                        alt=""
+                        class="h-[180px] w-full border-b-4 border-line object-cover"
+                    />
+                ) : (
+                    <div class="grid h-[180px] place-items-center border-b-4 border-line bg-avatar-bg bg-[repeating-linear-gradient(45deg,transparent_0_12px,#1d1b33_12px_24px)]">
+                        <span class="font-pixel text-[0.6rem] text-ink-muted">{t.noImage}</span>
+                    </div>
+                )}
+
+                <div class="flex flex-1 flex-col p-6">
+                    <div class="mb-3 flex flex-wrap items-center gap-3">
+                        <h3 class="font-pixel text-sm leading-snug">{project.title}</h3>
+                        {project.remodel && (
+                            <span class="bg-badge px-2 py-1 font-pixel text-[0.55rem] text-bg">
+                                {t.remodel}
+                            </span>
+                        )}
+                    </div>
+                    <p class="mb-5 text-ink-soft">{localize(project.description, locale)}</p>
+                    <Tags items={project.tags} />
+
+                    <div class="mt-auto flex flex-wrap gap-4 pt-6">
+                        {project.repo && (
+                            <a
+                                href={project.repo}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn btn-secondary"
+                            >
+                                {t.repo}
+                                <span class="sr-only"> {project.title}</span>
+                            </a>
+                        )}
+                        {project.demo && (
+                            <a
+                                href={project.demo}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn btn-primary"
+                            >
+                                {t.demo}
+                                <span class="sr-only"> {project.title}</span>
+                            </a>
+                        )}
+                    </div>
+                </div>
+            </article>
+        ))}
+    </div>
+</section>

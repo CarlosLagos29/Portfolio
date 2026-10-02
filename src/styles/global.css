@@ -1,38 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-    --animate-scroll: scroll 20s linear infinite;
-    --animate-mobile: mobile 20s linear infinite;
-    --animate-fadeInDown: fadeInDown 1s ease-out forwards;
+    --color-bg: #0e0d1a;
+    --color-panel: #18172b;
+    --color-avatar-bg: #121124;
+    --color-line: #2e2c4d;
+    --color-ink: #f4f1e8;
+    --color-ink-soft: #cfcbe3;
+    --color-ink-muted: #b3afc9;
+    /* Acento principal: cambiar acá cambia todo el sitio */
+    --color-accent: #ffcd3c;
+    --color-cyan: #45d0e8;
+    --color-online: #7ee081;
+    --color-badge: #ff8a3d;
+    --color-danger: #ff4d4d;
 
-    @keyframes scroll {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(-63%);
-        }
-    }
+    --font-pixel: "Press Start 2P", ui-monospace, monospace;
+    --font-body: "Pixelify Sans", ui-monospace, monospace;
 
-    @keyframes mobile {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(-250%);
-        }
-    }
-
-    @keyframes fadeInDown {
-        from {
-            opacity: 0;
-            transform: translateY(-100px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+    --shadow-hard: 8px 8px 0 #000;
+    --shadow-hard-sm: 6px 6px 0 #000;
 }
 
 /* Tailwind 4 dejó los botones con cursor default; se mantiene el comportamiento de v3 */
@@ -40,5 +27,249 @@
     button:not(:disabled),
     [role="button"]:not(:disabled) {
         cursor: pointer;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        /* compensa el header sticky al saltar a un ancla */
+        scroll-padding-top: 6rem;
+    }
+
+    body {
+        background-color: var(--color-bg);
+        color: var(--color-ink);
+        font-family: var(--font-body);
+    }
+
+    :focus-visible {
+        outline: 4px solid var(--color-accent);
+        outline-offset: 4px;
+    }
+}
+
+@layer components {
+    .container-page {
+        width: 100%;
+        max-width: 1200px;
+        margin-inline: auto;
+        padding-inline: 24px;
+    }
+
+    .panel {
+        background-color: var(--color-panel);
+        border: 4px solid var(--color-line);
+        box-shadow: var(--shadow-hard);
+    }
+
+    /* Tarjetas: se levantan en hover */
+    .card {
+        transition:
+            transform 120ms steps(2),
+            box-shadow 120ms steps(2);
+    }
+    .card:hover {
+        transform: translate(-4px, -4px);
+        box-shadow: 12px 12px 0 #000;
+    }
+
+    /* Botones: se hunden en hover y se presionan del todo en active */
+    .btn {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.875rem 1.25rem;
+        font-family: var(--font-pixel);
+        font-size: 0.75rem;
+        line-height: 1.4;
+        text-align: center;
+        text-transform: uppercase;
+        box-shadow: var(--shadow-hard-sm);
+        transition:
+            transform 80ms steps(2),
+            box-shadow 80ms steps(2);
+    }
+    .btn:hover {
+        transform: translate(3px, 3px);
+        box-shadow: 3px 3px 0 #000;
+    }
+    .btn:active {
+        transform: translate(6px, 6px);
+        box-shadow: 0 0 0 #000;
+    }
+    .btn-primary {
+        background-color: var(--color-accent);
+        color: var(--color-bg);
+    }
+    .btn-secondary {
+        border: 4px solid var(--color-ink);
+        background-color: transparent;
+        color: var(--color-ink);
+    }
+
+    .chip {
+        display: inline-block;
+        border: 2px solid var(--color-line);
+        background-color: var(--color-bg);
+        padding: 0.25rem 0.5rem;
+        font-size: 0.95rem;
+        line-height: 1.2;
+        color: var(--color-ink-soft);
+        transition: transform 80ms steps(2);
+    }
+    .chip:hover {
+        transform: translateY(-3px);
+    }
+
+    /* Viñeta cuadrada de 8px en acento */
+    .pixel-list > li {
+        position: relative;
+        padding-left: 1.25rem;
+    }
+    .pixel-list > li::before {
+        content: "";
+        position: absolute;
+        top: 0.55em;
+        left: 0;
+        width: 8px;
+        height: 8px;
+        background-color: var(--color-accent);
+    }
+
+    .block-cursor {
+        display: inline-block;
+        width: 0.6em;
+        height: 1em;
+        margin-left: 0.25em;
+        vertical-align: -0.1em;
+        background-color: currentColor;
+        animation: blink 1s step-end infinite;
+    }
+}
+
+/* ---------- Animaciones: todas "a saltos" ---------- */
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes twinkle {
+    from {
+        opacity: 0.15;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes bob {
+    from {
+        translate: 0 0;
+    }
+    to {
+        translate: 0 -6px;
+    }
+}
+
+@keyframes eye-blink {
+    0%,
+    94% {
+        background-color: #14121f;
+    }
+    95%,
+    100% {
+        background-color: #f2b880;
+    }
+}
+
+@keyframes loading {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+/* Un cambio de color cada 650ms (no más rápido, por fotosensibilidad) */
+@keyframes continue-colors {
+    0% {
+        color: var(--color-accent);
+    }
+    20% {
+        color: var(--color-danger);
+    }
+    40% {
+        color: var(--color-ink);
+    }
+    60% {
+        color: var(--color-cyan);
+    }
+    80% {
+        color: var(--color-badge);
+    }
+}
+
+@keyframes reveal {
+    from {
+        opacity: 0;
+        translate: 0 32px;
+    }
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+.blink {
+    animation: blink 1s step-end infinite;
+}
+
+.star {
+    animation: twinkle var(--duration, 2s) steps(2, jump-none) infinite alternate;
+}
+
+.avatar {
+    animation: bob 1.4s steps(2, jump-none) infinite;
+}
+
+.avatar .eye {
+    animation: eye-blink 4s step-end infinite;
+}
+
+.loading-bar {
+    width: 100%;
+    animation: loading 3s steps(12) infinite;
+}
+
+.continue-title {
+    color: var(--color-accent);
+    animation: continue-colors 3.25s step-end infinite;
+}
+
+/* Reveal al hacer scroll. Usa `translate` (no `transform`) para no chocar con los hovers.
+   Sin soporte de animation-timeline los elementos simplemente se ven desde el inicio. */
+@supports (animation-timeline: view()) {
+    .reveal {
+        animation: reveal linear both;
+        animation-timing-function: steps(6);
+        animation-timeline: view();
+        animation-range: entry 0% entry 60%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
     }
 }
