@@ -1,36 +1,39 @@
-<nav class="navbar flex gap-5 p-6 my-3 mx-auto items-center justify-center md:justify-end w-[98%] rounded-xl bg-slate-700 text-white" id="navbar">
-  <a href="#hero">Inicio</a>
-  <a href="#stack">Stack</a>
-  <a href="#experience">Experiencia</a>
-  <a href="#projects">Proyectos</a>
-  <a href="#contact">Contacto</a>
+<nav
+    class="navbar flex gap-5 p-6 my-3 mx-auto items-center justify-center md:justify-end w-[98%] rounded-xl bg-slate-700 text-white"
+    id="navbar"
+>
+    <a href="#hero">Inicio</a>
+    <a href="#stack">Stack</a>
+    <a href="#experience">Experiencia</a>
+    <a href="#projects">Proyectos</a>
+    <a href="#contact">Contacto</a>
 </nav>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-      const navbar = document.querySelector('.navbar');
-      if (!navbar) return;
+    document.addEventListener("DOMContentLoaded", () => {
+        const navbar = document.querySelector(".navbar");
+        if (!navbar) return;
 
-      window.addEventListener('scroll', () => {
-          const scrolled = window.scrollY > 50;
-          navbar.classList.toggle('bg-slate-700/50', scrolled);
-          navbar.classList.toggle('bg-slate-700', !scrolled);
-      });
+        window.addEventListener("scroll", () => {
+            const scrolled = window.scrollY > 50;
+            navbar.classList.toggle("bg-slate-700/50", scrolled);
+            navbar.classList.toggle("bg-slate-700", !scrolled);
+        });
 
-      const links = navbar.querySelectorAll('a');
+        const links = navbar.querySelectorAll("a");
 
-      links.forEach(link => {
-          link.addEventListener('click', (event) => {
-              event.preventDefault();
-              const targetId = link.getAttribute('href')?.substring(1) ?? '';
-              const targetElement = document.getElementById(targetId);
-              if (!targetElement) return;
+        links.forEach((link) => {
+            link.addEventListener("click", (event) => {
+                event.preventDefault();
+                const targetId = link.getAttribute("href")?.substring(1) ?? "";
+                const targetElement = document.getElementById(targetId);
+                if (!targetElement) return;
 
-              window.scroll({
-                  top: targetElement.offsetTop - 160,
-                  behavior: 'smooth'
-              });
-          });
-      });
-  });
+                window.scroll({
+                    top: targetElement.offsetTop - 160,
+                    behavior: "smooth",
+                });
+            });
+        });
+    });
 </script>

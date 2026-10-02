@@ -3,19 +3,12 @@ import SocialLink from "./SocialLink.astro";
 import { SOCIALS } from "../data/socials";
 ---
 
-<div
-    class="flex flex-col items-center  rounded-xl w-[98%] mx-auto my-3 p-6 text-white bg-slate-700"
->
+<div class="flex flex-col items-center rounded-xl w-[98%] mx-auto my-3 p-6 text-white bg-slate-700">
     <h1>Encuentrame en:</h1>
     <nav class="flex justify-center w-full gap-16 items-center mt-3">
-        {
-            SOCIALS.map((social) => (
-                <SocialLink
-                    social={social}
-                    class="size-10 hover:scale-110 transition duration-200"
-                />
-            ))
-        }
+        {SOCIALS.map((social) => (
+            <SocialLink social={social} class="size-10 hover:scale-110 transition duration-200" />
+        ))}
     </nav>
     <h1 class="mt-5 text-sm">Portfolio Desarrollado con Astro, TypeScript y mucho esfuerzo</h1>
 </div>

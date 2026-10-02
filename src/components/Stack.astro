@@ -10,15 +10,9 @@ const logos = [...STACK, ...STACK];
     <section class="overflow-hidden w-full">
         <section class="flex animate-mobile md:animate-scroll">
             <span class="flex items-center space-x-4">
-                {
-                    logos.map((tech) => (
-                        <img
-                            src={tech.logo}
-                            alt={tech.name}
-                            class={tech.class ?? "size-20"}
-                        />
-                    ))
-                }
+                {logos.map((tech) => (
+                    <img src={tech.logo} alt={tech.name} class={tech.class ?? "size-20"} />
+                ))}
             </span>
         </section>
     </section>

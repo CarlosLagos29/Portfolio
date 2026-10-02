@@ -11,14 +11,11 @@ import { PROJECTS } from "../../data/projects";
             alt="image"
         />
         Proyectos
-
     </h1>
 
     <section class="flex flex-col items-center h-[100vh] overflow-auto">
-        {
-            PROJECTS.map((project, index) => (
-                <ProjectCard {...project} index={index} />
-            ))
-        }
+        {PROJECTS.map((project, index) => (
+            <ProjectCard {...project} index={index} />
+        ))}
     </section>
 </div>
