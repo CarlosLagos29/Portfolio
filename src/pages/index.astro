@@ -1,10 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Experience from "../components/Experience/experience.astro";
-import Footer from "../components/Footer/footer.astro";
-import Head from "../components/Head/head.astro";
-import Navbar from "../components/Navbar/navbar.astro";
-import Proyects from "../components/Proyects/proyects.astro";
+import Experience from "../components/Experience/Experience.astro";
+import Footer from "../components/Footer.astro";
+import Hero from "../components/Hero.astro";
+import Navbar from "../components/Navbar.astro";
+import Projects from "../components/Projects/Projects.astro";
 ---
 
 <Layout>
@@ -13,16 +13,16 @@ import Proyects from "../components/Proyects/proyects.astro";
 			<Navbar />
 		</nav>
 		<div class="flex flex-col gap-y-40 items-center mx-auto w-[80%] mt-32 mb-20 md:mt-40">
-			<section id="head" class="animate-on-scroll opacity-0 transform translate-y-10">
-			  <Head />
+			<section id="hero" class="animate-on-scroll opacity-0 transform translate-y-10">
+			  <Hero />
 			</section>
 		  
 			<section id="experience" class="animate-on-scroll opacity-0 transform translate-y-10">
 			  <Experience />
 			</section>
 		  
-			<section id="proyects" class="animate-on-scroll opacity-0 transform translate-y-10">
-			  <Proyects />
+			<section id="projects" class="animate-on-scroll opacity-0 transform translate-y-10">
+			  <Projects />
 			</section>
 		  </div>
 		<footer id="contact">

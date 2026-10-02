@@ -1,5 +1,9 @@
 ---
-type Props = import("./mockProyects").Props;
+import type { Project } from "../../types";
+
+interface Props extends Project {
+    index: number;
+}
 
 const { title, subtitle, date, description, link, repo, tech, img, index } =
     Astro.props;
@@ -19,7 +23,7 @@ const par = index % 2;
             <img
                 class="rounded-xl items-center size-full max-w-[500px] max-h-[500px]"
                 src={img}
-                alt="Proyect image"
+                alt={title}
             />
         </span>
         <article class="md:w-[50%] flex flex-col">
@@ -35,7 +39,7 @@ const par = index % 2;
             <ul class="flex flex-wrap gap-2 mt-2">
                 Tecnologias usadas:
                 {
-                    tech.map((t: string) => (
+                    tech.map((t) => (
                         <li class=" bg-slate-50 rounded-full text-slate-950 px-2">
                             {t}
                         </li>

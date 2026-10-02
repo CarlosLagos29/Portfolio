@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  --animate-scroll: scroll 20s linear infinite;
+  --animate-mobile: mobile 20s linear infinite;
+  --animate-fadeInDown: fadeInDown 1s ease-out forwards;
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-63%);
+    }
+  }
+
+  @keyframes mobile {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-250%);
+    }
+  }
+
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-100px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Tailwind 4 dejó los botones con cursor default; se mantiene el comportamiento de v3 */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}

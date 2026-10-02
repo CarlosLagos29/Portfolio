@@ -1,16 +1,27 @@
 ---
+import type { Social } from "../types";
+
 interface Props {
-    color: string;
-    hover?: string;
+    social: Social;
+    color?: string;
+    class?: string;
+    imgClass?: string;
 }
 
-const { color, hover} = Astro.props;
+const { social, color = "FFFFFF", class: className, imgClass } = Astro.props;
+const isExternal = social.href.startsWith("http");
 ---
 
-<a href="https://github.com/CarlosLagos29" target="_blank">
+<a
+    href={social.href}
+    target={isExternal ? "_blank" : undefined}
+    rel={isExternal ? "noopener noreferrer" : undefined}
+    aria-label={social.name}
+    class={className}
+>
     <img
-        src={`https://img.icons8.com/?size=100&id=ARy6tFUfwclb&format=png&color=${color}`}
-        class=`size-full ${hover}`
-        alt="https://github.com/CarlosLagos29"
+        src={`https://img.icons8.com/?size=100&id=${social.icon}&format=png&color=${color}`}
+        class:list={["size-full", imgClass]}
+        alt={social.name}
     />
 </a>

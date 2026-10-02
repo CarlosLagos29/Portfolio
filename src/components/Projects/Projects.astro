@@ -1,6 +1,6 @@
 ---
-import { PROYECTS } from "./mockProyects";
-import ProyectCard from "./proyectCard.astro";
+import ProjectCard from "./ProjectCard.astro";
+import { PROJECTS } from "../../data/projects";
 ---
 
 <div>
@@ -16,8 +16,8 @@ import ProyectCard from "./proyectCard.astro";
 
     <section class="flex flex-col items-center h-[100vh] overflow-auto">
         {
-            PROYECTS.map((proyect, index) => (
-                <ProyectCard {...proyect} index={index} />
+            PROJECTS.map((project, index) => (
+                <ProjectCard {...project} index={index} />
             ))
         }
     </section>

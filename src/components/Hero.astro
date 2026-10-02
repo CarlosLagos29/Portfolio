@@ -1,9 +1,7 @@
 ---
-import GitHub from "../Buttons/gitHub.astro";
-import Gmail from "../Buttons/gmail.astro";
-import WhatsApp from "../Buttons/whatsApp.astro";
-import LinkedIn from "../Buttons/linkedIn.astro";
-import Stack from "../Stack/stack.astro";
+import SocialLink from "./SocialLink.astro";
+import Stack from "./Stack.astro";
+import { SOCIALS } from "../data/socials";
 ---
 
 <div class="w-full flex flex-col">
@@ -41,38 +39,15 @@ import Stack from "../Stack/stack.astro";
         </p>
     </article>
     <nav class="flex justify-center items-center gap-8 mt-5">
-        <button
-            class="w-14 border border-white rounded-full hover:bg-white hover:border-slate-950 transition duration-500"
-        >
-            <GitHub
-                color="FFFFFF"
-                hover="filter hover:invert transition duration-500 p-2 "
-            />
-        </button>
-        <button
-            class="w-14 border border-white rounded-full hover:bg-white hover:border-slate-950 transition duration-500"
-        >
-            <Gmail
-                color="FFFFFF"
-                hover="filter hover:invert transition duration-500 p-2 "
-            />
-        </button>
-        <button
-            class="w-14 border border-white rounded-full hover:bg-white hover:border-slate-950 transition duration-500"
-        >
-            <WhatsApp
-                color="FFFFFF"
-                hover="filter hover:invert transition duration-500 p-2 "
-            />
-        </button>
-        <button
-            class="w-14 border border-white rounded-full hover:bg-white hover:border-slate-950 transition duration-500"
-        >
-            <LinkedIn
-                color="FFFFFF"
-                hover="filter hover:invert transition duration-500 p-2 "
-            />
-        </button>
+        {
+            SOCIALS.map((social) => (
+                <SocialLink
+                    social={social}
+                    class="group w-14 border border-white rounded-full hover:bg-white hover:border-slate-950 transition duration-500"
+                    imgClass="group-hover:invert transition duration-500 p-2"
+                />
+            ))
+        }
     </nav>
     <section id="stack" class="mt-32">
         <Stack/>

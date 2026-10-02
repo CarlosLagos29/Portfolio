@@ -1,6 +1,6 @@
 ---
-import EXPERIENCE from "./mockExperience"
-import Item from "./item.astro"
+import ExperienceItem from "./ExperienceItem.astro";
+import { EXPERIENCE } from "../../data/experience";
 ---
 <div>
     <h1 class="flex flex-row gap-2 items-center text-3xl font-bold mb-6">
@@ -13,9 +13,9 @@ import Item from "./item.astro"
     </h1>
     <ol class=" relative border-s border-gray-200 dark:border-gray-700 ml-3">
         {
-            EXPERIENCE.map((exp, index) => (
+            EXPERIENCE.map((exp) => (
                 <li class="mb-10 ms-6 text-pretty">
-                    <Item {...exp} index={index} />
+                    <ExperienceItem {...exp} />
                 </li>
             ))
         }
