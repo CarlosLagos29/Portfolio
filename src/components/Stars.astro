@@ -1,13 +1,13 @@
 ---
-// Estrellas decorativas del fondo del hero. Posiciones fijas (pseudoaleatorias con semilla)
-// para que el build sea siempre igual.
+// Estrellas decorativas de fondo para todo el sitio: capa fija detrás del contenido.
+// Posiciones fijas (pseudoaleatorias con semilla) para que el build sea siempre igual.
 let seed = 29;
 const random = () => {
     seed = (seed * 9301 + 49297) % 233280;
     return seed / 233280;
 };
 
-const stars = Array.from({ length: 18 }, (_, i) => ({
+const stars = Array.from({ length: 36 }, (_, i) => ({
     top: Math.round(random() * 95),
     left: Math.round(random() * 97),
     size: 4 + Math.round(random() * 2),
@@ -16,7 +16,7 @@ const stars = Array.from({ length: 18 }, (_, i) => ({
 }));
 ---
 
-<div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+<div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
     {stars.map((star) => (
         <span
             class="star absolute"

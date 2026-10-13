@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Header from "./Header.astro";
+import Stars from "./Stars.astro";
 import Hero from "./Hero.astro";
 import Stack from "./Stack.astro";
 import Experience from "./Experience.astro";
@@ -19,6 +20,7 @@ const { locale } = Astro.props;
 ---
 
 <Layout locale={locale}>
+    <Stars />
     <Header locale={locale} />
     <main id="main">
         <Hero locale={locale} />
