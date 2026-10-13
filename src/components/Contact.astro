@@ -1,6 +1,6 @@
 ---
 import { CONTACT } from "../data/contact";
-import { getDictionary } from "../i18n";
+import { getDictionary, localize } from "../i18n";
 import type { Locale } from "../types";
 
 interface Props {
@@ -41,7 +41,11 @@ const t = getDictionary(locale).contact;
             >
                 {t.github}
             </a>
-            <a href={CONTACT.cv} download class="btn btn-secondary border-cyan text-cyan">
+            <a
+                href={localize(CONTACT.cv, locale)}
+                download
+                class="btn btn-secondary border-cyan text-cyan"
+            >
                 {t.cv}
             </a>
         </div>

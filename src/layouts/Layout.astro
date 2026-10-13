@@ -12,7 +12,7 @@ interface Props {
 const { locale } = Astro.props;
 const t = getDictionary(locale);
 const canonical = getAbsoluteLocaleUrl(locale);
-const ogImage = new URL("/og.png", Astro.site).href;
+const ogImage = new URL("/imgs/og.png", Astro.site).href;
 ---
 
 <!doctype html>
@@ -23,9 +23,9 @@ const ogImage = new URL("/og.png", Astro.site).href;
         <title>{t.meta.title}</title>
         <meta name="description" content={t.meta.description} />
         <meta name="generator" content={Astro.generator} />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
-        <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64.png" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/imgs/favicon-32.png" />
+        <link rel="icon" type="image/png" sizes="64x64" href="/imgs/favicon-64.png" />
+        <link rel="apple-touch-icon" href="/imgs/apple-touch-icon.png" />
 
         <link rel="canonical" href={canonical} />
         {LOCALES.map((l) => (

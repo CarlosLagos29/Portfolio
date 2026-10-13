@@ -39,7 +39,7 @@ export const es = {
             { key: "IDIOMAS", value: "Español · Inglés B2" },
             { key: "ESTADO", value: "Disponible para trabajar" },
         ],
-        loading: "BUSCANDO PRÓXIMO NIVEL...",
+        loading: "BUSCANDO PROXIMO NIVEL...",
     },
     stack: {
         title: "INVENTARIO",

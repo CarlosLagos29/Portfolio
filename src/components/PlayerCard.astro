@@ -11,7 +11,7 @@ const { locale } = Astro.props;
 const t = getDictionary(locale).hero;
 ---
 
-<aside class="panel card reveal" aria-label={t.player}>
+<aside class="panel reveal" aria-label={t.player}>
     <div class="flex items-center justify-between border-b-4 border-line px-4 py-3">
         <span class="font-pixel text-[0.65rem] text-accent">{t.player}</span>
         <span class="flex items-center gap-2 font-pixel text-[0.6rem] text-online">

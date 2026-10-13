@@ -25,10 +25,7 @@ const borders = { frontend: "border-cyan", backend: "border-accent" } as const;
             const info = t.groups[group.id as "frontend" | "backend"];
             return (
                 <article
-                    class:list={[
-                        "panel card reveal p-6",
-                        borders[group.id as keyof typeof borders],
-                    ]}
+                    class:list={["panel reveal p-6", borders[group.id as keyof typeof borders]]}
                 >
                     <div class="mb-4 flex items-center justify-between gap-4">
                         <h3 class="font-pixel text-sm">{info.title}</h3>
@@ -43,7 +40,7 @@ const borders = { frontend: "border-cyan", backend: "border-accent" } as const;
 
     <div class="mt-8 grid gap-8 grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))]">
         {secondary.map((group) => (
-            <article class="panel card reveal p-5">
+            <article class="panel reveal p-5">
                 <h3 class="mb-4 font-pixel text-[0.7rem]">{t.groups[group.id].title}</h3>
                 <Tags items={group.items} />
             </article>
