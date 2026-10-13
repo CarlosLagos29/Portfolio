@@ -2,7 +2,7 @@
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 import astro from "eslint-plugin-astro";
-import prettier from "eslint-config-prettier";
+import prettierRecommended from "eslint-plugin-prettier/recommended";
 import globals from "globals";
 import { defineConfig } from "eslint/config";
 
@@ -16,6 +16,9 @@ export default defineConfig(
             globals: { ...globals.browser, ...globals.node },
         },
     },
-    // Desactiva las reglas de estilo que chocan con Prettier (tiene que ir al final)
-    prettier,
+    prettierRecommended,
+    {
+        files: ["**/*.astro/*.js", "**/*.astro/*.ts"],
+        rules: { "prettier/prettier": "off" },
+    },
 );

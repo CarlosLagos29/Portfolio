@@ -1,6 +1,6 @@
 export const es = {
     meta: {
-        title: "Carlos Lagos — Full Stack Developer",
+        title: "Carlos Lagos Full Stack Developer",
         description:
             "Portfolio de Carlos Lagos, Full Stack Developer en Buenos Aires: Vue, React, Kotlin con Spring Boot, Node y AWS.",
         ogAlt: "Carlos Lagos, Full Stack Developer, en estilo pixel art",

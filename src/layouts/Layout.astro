@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { Font } from "astro:assets";
 import { getAbsoluteLocaleUrl } from "astro:i18n";
 import { getDictionary, LOCALES } from "../i18n";
 import type { Locale } from "../types";
@@ -43,12 +44,8 @@ const ogImage = new URL("/og.png", Astro.site).href;
         <meta property="og:image:alt" content={t.meta.ogAlt} />
         <meta name="twitter:card" content="summary_large_image" />
 
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&family=Press+Start+2P&display=swap"
-        />
+        <Font cssVariable="--font-press-start" preload />
+        <Font cssVariable="--font-pixelify" preload />
     </head>
     <body class="min-h-screen text-lg leading-relaxed antialiased">
         <a

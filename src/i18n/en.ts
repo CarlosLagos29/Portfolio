@@ -2,7 +2,7 @@ import type { Dictionary } from ".";
 
 export const en: Dictionary = {
     meta: {
-        title: "Carlos Lagos — Full Stack Developer",
+        title: "Carlos Lagos Full Stack Developer",
         description:
             "Portfolio of Carlos Lagos, Full Stack Developer based in Buenos Aires: Vue, React, Kotlin with Spring Boot, Node and AWS.",
         ogAlt: "Carlos Lagos, Full Stack Developer, in pixel art style",

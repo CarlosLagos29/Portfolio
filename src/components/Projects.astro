@@ -23,6 +23,8 @@ const t = getDictionary(locale).projects;
                     <img
                         src={project.image}
                         alt=""
+                        loading="lazy"
+                        decoding="async"
                         class="h-[180px] w-full border-b-4 border-line object-cover"
                     />
                 ) : (
