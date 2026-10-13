@@ -16,37 +16,33 @@ const t = getDictionary(locale).hero;
     <Stars />
     <div class="container-page grid items-center gap-12 grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))]">
         <div class="reveal">
-            <p class="mb-6 font-pixel text-xs text-cyan">
-                {t.label}
-                <span class="block-cursor" aria-hidden="true"></span>
-            </p>
-
-            <h1 class="font-pixel text-[clamp(2rem,6vw,3.75rem)] leading-tight [text-shadow:5px_5px_0_#000]">
-                CARLOS
-                <br />
-                LAGOS
+            <h1 class="font-pixel">
+                <span class="mb-6 block text-xs text-cyan uppercase">{t.greeting}</span>
+                <span class="block text-[clamp(1.75rem,5vw,3rem)] leading-tight uppercase [text-shadow:5px_5px_0_#000]">
+                    {t.role}
+                </span>
             </h1>
 
-            <h2
-                class="mt-6 min-h-[2.5em] font-pixel text-[clamp(0.7rem,1.6vw,0.95rem)] leading-relaxed text-cyan"
-                aria-label={t.role}
-            >
+            <p class="mt-6 min-h-[2.5em] font-pixel text-[clamp(0.7rem,1.6vw,0.95rem)] leading-relaxed text-cyan">
+                <span class="sr-only">{t.phrases.join(", ")}</span>
                 <span aria-hidden="true">
                     <span data-typewriter data-phrases={JSON.stringify(t.phrases)}>
                         {t.phrases[0]}
                     </span>
                     <span class="block-cursor"></span>
                 </span>
-            </h2>
+            </p>
 
             <p class="mt-6 max-w-[60ch] text-xl text-ink-soft">{t.paragraph}</p>
 
             <div class="mt-8 flex flex-wrap gap-4">
                 <a href="#experience" class="btn btn-primary">
                     {t.ctaPrimary}
+                    <span class="sr-only">: {t.ctaPrimaryHint}</span>
                 </a>
                 <a href="#contact" class="btn btn-secondary">
                     {t.ctaSecondary}
+                    <span class="sr-only">: {t.ctaSecondaryHint}</span>
                 </a>
             </div>
         </div>

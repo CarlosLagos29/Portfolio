@@ -1,3 +1,5 @@
+import { XP_YEARS } from "../data/experience";
+
 export const es = {
     meta: {
         title: "Carlos Lagos Full Stack Developer",
@@ -18,26 +20,22 @@ export const es = {
         contact: "Contacto",
     },
     hero: {
-        label: "PRESS START",
+        greeting: "Hola, soy Carlos Lagos",
         role: "Full Stack Developer",
-        phrases: [
-            "FULL STACK DEVELOPER",
-            "VUE · REACT · NEXT.JS",
-            "KOTLIN · SPRING BOOT · NODE",
-            "AWS · DYNAMODB · MYSQL",
-        ],
+        phrases: ["VUE · REACT · NEXT.JS", "KOTLIN · SPRING BOOT · NODE", "AWS · DYNAMODB · MYSQL"],
         paragraph:
-            "Construyo productos de punta a punta: interfaces en Vue y React, APIs en Kotlin con Spring Boot y en Node, e infraestructura en AWS. En mi último rol pasé de desarrollar a liderar el equipo del proyecto, coordinando con el cliente y revisando código.",
-        ctaPrimary: "VER EXPERIENCIA",
-        ctaSecondary: "CONTACTAR",
+            "Estoy en todo el proceso: del front al back y hasta la infraestructura. Me adapto rápido a cada nivel nuevo, disfruto jugar en equipo y siempre hay algo más para aprender.",
+        ctaPrimary: "PRESS START",
+        ctaPrimaryHint: "ver experiencia",
+        ctaSecondary: "JOIN GAME",
+        ctaSecondaryHint: "contactar",
         player: "PLAYER 1",
         online: "ONLINE",
         stats: [
-            { key: "CLASE", value: "Full Stack Developer" },
+            { key: "CLASE", value: "Full Stack · Multiclase" },
             { key: "BASE", value: "Buenos Aires, AR" },
-            { key: "XP", value: "~2 años en producción" },
+            { key: "XP", value: `~${XP_YEARS} ${XP_YEARS === 1 ? "año" : "años"} en producción` },
             { key: "IDIOMAS", value: "Español · Inglés B2" },
-            { key: "ESTADO", value: "Disponible para trabajar" },
         ],
         loading: "BUSCANDO PROXIMO NIVEL...",
     },

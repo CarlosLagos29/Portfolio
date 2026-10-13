@@ -1,6 +1,5 @@
 import type { Experience } from "../types";
 
-// Por confidencialidad contractual no se nombra al cliente final ni al producto de 42i.
 export const EXPERIENCE: Experience[] = [
     {
         level: 4,
@@ -155,3 +154,16 @@ export const EXPERIENCE: Experience[] = [
         ],
     },
 ];
+
+/** Años completos trabajados, sin contar dos veces los meses en que se superponen trabajos */
+function experienceYears(): number {
+    const months = new Set<number>();
+    for (const { start, end } of EXPERIENCE) {
+        const [startYear, startMonth] = start.split("-").map(Number);
+        const [endYear, endMonth] = end.split("-").map(Number);
+        for (let m = startYear * 12 + startMonth; m <= endYear * 12 + endMonth; m++) months.add(m);
+    }
+    return Math.floor(months.size / 12);
+}
+
+export const XP_YEARS = experienceYears();

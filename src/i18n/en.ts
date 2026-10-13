@@ -1,3 +1,4 @@
+import { XP_YEARS } from "../data/experience";
 import type { Dictionary } from ".";
 
 export const en: Dictionary = {
@@ -20,26 +21,22 @@ export const en: Dictionary = {
         contact: "Contact",
     },
     hero: {
-        label: "PRESS START",
+        greeting: "Hi, I'm Carlos Lagos",
         role: "Full Stack Developer",
-        phrases: [
-            "FULL STACK DEVELOPER",
-            "VUE · REACT · NEXT.JS",
-            "KOTLIN · SPRING BOOT · NODE",
-            "AWS · DYNAMODB · MYSQL",
-        ],
+        phrases: ["VUE · REACT · NEXT.JS", "KOTLIN · SPRING BOOT · NODE", "AWS · DYNAMODB · MYSQL"],
         paragraph:
-            "I build products end to end: interfaces in Vue and React, APIs in Kotlin with Spring Boot and in Node, and infrastructure on AWS. In my last role I went from developing to leading the project team, coordinating with the client and reviewing code.",
-        ctaPrimary: "VIEW EXPERIENCE",
-        ctaSecondary: "CONTACT",
+            "I work across the whole process: front end, back end and even infrastructure. I adapt quickly to each new level, enjoy team play, and there's always something else to learn.",
+        ctaPrimary: "PRESS START",
+        ctaPrimaryHint: "view experience",
+        ctaSecondary: "JOIN GAME",
+        ctaSecondaryHint: "contact",
         player: "PLAYER 1",
         online: "ONLINE",
         stats: [
-            { key: "CLASS", value: "Full Stack Developer" },
+            { key: "CLASS", value: "Full Stack · Multiclass" },
             { key: "BASE", value: "Buenos Aires, AR" },
-            { key: "XP", value: "~2 years in production" },
+            { key: "XP", value: `~${XP_YEARS} ${XP_YEARS === 1 ? "year" : "years"} in production` },
             { key: "LANGUAGES", value: "Spanish · English B2" },
-            { key: "STATUS", value: "Open to work" },
         ],
         loading: "SEARCHING FOR NEXT LEVEL...",
     },
