@@ -147,6 +147,14 @@
         color: var(--color-accent);
     }
 
+    /* Etiquetas MISION / JEFE FINAL / LOOT de cada nivel (el color va como utilidad) */
+    .level-label {
+        margin-bottom: 0.75rem;
+        font-family: var(--font-pixel);
+        font-size: 0.65rem;
+        line-height: 1.6;
+    }
+
     /* Pestañas de categoría de Inventario (Stack.astro) */
     .stack-tab {
         display: inline-flex;

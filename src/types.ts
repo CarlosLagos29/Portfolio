@@ -20,10 +20,25 @@ export interface StackGroup {
     items: StackItem[];
 }
 
+/** El problema más difícil de una etapa, contado como antes → lo que hice → después */
+export interface ExperienceBoss {
+    title: Localized;
+    before: Localized;
+    action: Localized;
+    after: Localized;
+}
+
+/**
+ * Una etapa se muestra como MISION + JEFE FINAL + LOOT si tiene `mission`;
+ * si no, con las viñetas de `achievements` (formato anterior, como en el CV).
+ */
 export interface ExperienceStage {
     title?: Localized;
     meta?: Localized;
-    achievements: Localized[];
+    mission?: Localized;
+    boss?: ExperienceBoss;
+    achievements?: Localized[];
+    /** Tecnologías (LOOT). Si el nombre coincide con uno de stack.ts se muestra con su logo */
     tags?: string[];
 }
 

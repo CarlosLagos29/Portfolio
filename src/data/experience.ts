@@ -17,41 +17,33 @@ export const EXPERIENCE: Experience[] = [
                     es: "4 ediciones · México, Argentina y Guatemala",
                     en: "4 editions · Mexico, Argentina and Guatemala",
                 },
-                achievements: [
-                    {
-                        es: "Lideré de manera informal el equipo durante ~1 año: coordinación con el cliente, estimación y reparto semanal de tareas, y revisión de PRs de un equipo externo.",
-                        en: "Informally led the team for ~1 year: client coordination, weekly task estimation and assignment, and reviewing PRs from an external team.",
+                mission: {
+                    es: "Entré a un proyecto de eventos de e-commerce con picos de tráfico internacionales (Hot Sale y Hot Fashion en México, Glam Days en Argentina, Cyber Days en Guatemala) y terminé coordinando el equipo durante un año: hablaba con el cliente, repartía las tareas de la semana y revisaba los PRs.",
+                    en: "I joined an e-commerce events project with international traffic peaks (Hot Sale and Hot Fashion in Mexico, Glam Days in Argentina, Cyber Days in Guatemala) and ended up coordinating the team for a year: talking to the client, splitting the week's tasks and reviewing PRs.",
+                },
+                boss: {
+                    title: { es: "El ranking de clics", en: "The click ranking" },
+                    before: {
+                        es: "Pasaba por la web, una Lambda, MySQL y Redis. Era lento y costaba debuggearlo.",
+                        en: "It went through the web app, a Lambda, MySQL and Redis. It was slow and hard to debug.",
                     },
-                    {
-                        es: "Rediseñé el sistema de tracking y ranking de clics: de un flujo lento con Lambda, MySQL y Redis a índices de DynamoDB consultados directo desde la web.",
-                        en: "Redesigned the click tracking and ranking system: from a slow Lambda, MySQL and Redis flow to DynamoDB indexes queried directly from the web app.",
+                    action: {
+                        es: "Lo resolví con índices de DynamoDB consultados directo desde la web.",
+                        en: "I solved it with DynamoDB indexes queried directly from the web app.",
                     },
-                    {
-                        es: "Diseñé e implementé una API restringida para integrar un chatbot externo (ECS, ALB, réplica de lectura en Aurora, API key y rate limiting), incluido el presupuesto de costos.",
-                        en: "Designed and built a restricted API to integrate an external chatbot (ECS, ALB, Aurora read replica, API key and rate limiting), including the cost estimate.",
+                    after: {
+                        es: "Se actualizaba mucho más rápido y sumamos métricas de clics diarios.",
+                        en: "It updated much faster and we added daily click metrics.",
                     },
-                    {
-                        es: "Ajusté el dimensionamiento de la infraestructura en AWS según el tráfico estimado de cada evento.",
-                        en: "Sized the AWS infrastructure according to the expected traffic of each event.",
-                    },
-                    {
-                        es: "Resolví bugs de la migración a React 18 e incorporé TipTap como nuevo editor de texto para necesidades puntuales del cliente.",
-                        en: "Fixed bugs from the React 18 migration and introduced TipTap as a new text editor for specific client needs.",
-                    },
-                    {
-                        es: "Documenté los procesos de puesta en marcha de cada evento.",
-                        en: "Documented the launch process for each event.",
-                    },
-                ],
+                },
                 tags: [
                     "Kotlin",
                     "Spring Boot",
-                    "Vue 3 SSR",
+                    "Vue 3 (SSR)",
                     "React",
                     "TypeScript",
-                    "Node.js",
-                    "MySQL",
                     "DynamoDB",
+                    "MySQL",
                     "Redis",
                     "OpenSearch",
                     "AWS",
@@ -66,20 +58,10 @@ export const EXPERIENCE: Experience[] = [
                     es: "Oct – Dic 2024 · equipo de 3",
                     en: "Oct – Dec 2024 · team of 3",
                 },
-                achievements: [
-                    {
-                        es: "Desarrollé la interfaz de depósitos a plazo con interés compuesto.",
-                        en: "Built the interface for fixed-term deposits with compound interest.",
-                    },
-                    {
-                        es: "Conecté smart contracts al backend vía Web3.js en la testnet de TRON, ajustando contratos en Solidity.",
-                        en: "Connected smart contracts to the backend via Web3.js on the TRON testnet, adjusting contracts in Solidity.",
-                    },
-                    {
-                        es: "Escribí tests con Jest sobre contratos e interfaz.",
-                        en: "Wrote Jest tests for the contracts and the interface.",
-                    },
-                ],
+                mission: {
+                    es: "Hice la interfaz de depósitos a plazo con interés compuesto en Next.js y conecté los smart contracts al backend con Web3.js en la testnet de TRON.",
+                    en: "I built the fixed-term deposit interface with compound interest in Next.js and connected the smart contracts to the backend with Web3.js on the TRON testnet.",
+                },
                 tags: ["Solidity", "Web3.js", "Next.js", "TypeScript", "Prisma", "Docker", "Jest"],
             },
         ],

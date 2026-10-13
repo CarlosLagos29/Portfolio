@@ -68,6 +68,12 @@ export const en: Dictionary = {
         subtitle: "From the most recent to the first.",
         level: "LEVEL",
         present: "Present",
+        mission: "MISSION",
+        boss: "FINAL BOSS",
+        before: "BEFORE",
+        action: "WHAT I DID",
+        after: "AFTER",
+        loot: "LOOT",
     },
     projects: {
         title: "SIDE QUESTS",

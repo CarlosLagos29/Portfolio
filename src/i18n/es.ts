@@ -67,6 +67,12 @@ export const es = {
         subtitle: "Del más reciente al primero.",
         level: "NIVEL",
         present: "Actualidad",
+        mission: "MISION",
+        boss: "JEFE FINAL",
+        before: "ANTES",
+        action: "LO QUE HICE",
+        after: "DESPUES",
+        loot: "LOOT",
     },
     projects: {
         title: "SIDE QUESTS",

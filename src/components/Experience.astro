@@ -2,6 +2,7 @@
 import SectionHeader from "./SectionHeader.astro";
 import Tags from "./Tags.astro";
 import { EXPERIENCE } from "../data/experience";
+import { STACK } from "../data/stack";
 import { formatRange, getDictionary, localize } from "../i18n";
 import type { Locale } from "../types";
 
@@ -17,6 +18,9 @@ const levels = [...EXPERIENCE].sort((a, b) => a.level - b.level);
 const jobs = [...levels].reverse();
 const latest = jobs[0].level;
 const pad = (level: number) => String(level).padStart(2, "0");
+
+// Logos del Inventario para mostrar el LOOT con el mismo ícono
+const LOGOS = new Map(STACK.flatMap((group) => group.items).map((item) => [item.name, item.logo]));
 ---
 
 <section id="experience" aria-labelledby="experience-title" class="container-page py-16">
@@ -79,15 +83,79 @@ const pad = (level: number) => String(level).padStart(2, "0");
                                         {localize(stage.meta, locale)}
                                     </p>
                                 )}
-                                <ul class="pixel-list mt-4 flex flex-col gap-2 text-ink-soft">
-                                    {stage.achievements.map((item) => (
-                                        <li>{localize(item, locale)}</li>
-                                    ))}
-                                </ul>
-                                {stage.tags && (
-                                    <div class="mt-5">
-                                        <Tags items={stage.tags} />
+
+                                {stage.mission ? (
+                                    <div class="mt-5 grid gap-6">
+                                        <div>
+                                            <p class="level-label text-accent">{t.mission}</p>
+                                            <p class="text-ink-soft">
+                                                {localize(stage.mission, locale)}
+                                            </p>
+                                        </div>
+
+                                        {stage.boss && (
+                                            <div class="border-4 border-line bg-bg p-5">
+                                                <p class="level-label text-danger">
+                                                    {t.boss}: {localize(stage.boss.title, locale)}
+                                                </p>
+                                                <dl class="grid gap-3">
+                                                    {(["before", "action", "after"] as const).map(
+                                                        (key) => (
+                                                            <div class="grid gap-1 sm:grid-cols-[10rem_1fr] sm:gap-4">
+                                                                <dt class="font-pixel text-[0.6rem] leading-7 text-ink-muted">
+                                                                    {t[key]}
+                                                                </dt>
+                                                                <dd class="text-ink-soft">
+                                                                    {localize(
+                                                                        stage.boss![key],
+                                                                        locale,
+                                                                    )}
+                                                                </dd>
+                                                            </div>
+                                                        ),
+                                                    )}
+                                                </dl>
+                                            </div>
+                                        )}
+
+                                        {stage.tags && (
+                                            <div>
+                                                <p class="level-label text-cyan">{t.loot}</p>
+                                                <ul class="flex flex-wrap gap-2">
+                                                    {stage.tags.map((tag) => {
+                                                        const logo = LOGOS.get(tag);
+                                                        return (
+                                                            <li class="chip inline-flex items-center gap-2">
+                                                                {logo && (
+                                                                    <svg
+                                                                        class="size-4 fill-current"
+                                                                        viewBox="0 0 24 24"
+                                                                        aria-hidden="true"
+                                                                    >
+                                                                        <path d={logo.path} />
+                                                                    </svg>
+                                                                )}
+                                                                {tag}
+                                                            </li>
+                                                        );
+                                                    })}
+                                                </ul>
+                                            </div>
+                                        )}
                                     </div>
+                                ) : (
+                                    <>
+                                        <ul class="pixel-list mt-4 flex flex-col gap-2 text-ink-soft">
+                                            {stage.achievements?.map((item) => (
+                                                <li>{localize(item, locale)}</li>
+                                            ))}
+                                        </ul>
+                                        {stage.tags && (
+                                            <div class="mt-5">
+                                                <Tags items={stage.tags} />
+                                            </div>
+                                        )}
+                                    </>
                                 )}
                             </div>
                         ))}
