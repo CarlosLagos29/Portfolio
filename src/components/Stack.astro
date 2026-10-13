@@ -1,9 +1,9 @@
 ---
 import SectionHeader from "./SectionHeader.astro";
-import Tags from "./Tags.astro";
 import { STACK } from "../data/stack";
 import { getDictionary } from "../i18n";
-import type { Locale } from "../types";
+import type { Locale, StackGroup } from "../types";
+import { toPaths } from "../utils/pixelArt";
 
 interface Props {
     locale: Locale;
@@ -12,38 +12,188 @@ interface Props {
 const { locale } = Astro.props;
 const t = getDictionary(locale).stack;
 
-const main = STACK.filter((g) => g.id === "frontend" || g.id === "backend");
-const secondary = STACK.filter((g) => g.id !== "frontend" && g.id !== "backend");
-const borders = { frontend: "border-cyan", backend: "border-accent" } as const;
+// Íconos pixel art 12×12 de cada pestaña, de un solo color (toman el color del texto)
+const ICONS: Record<StackGroup["id"], string[]> = {
+    // Espada
+    frontend: [
+        "..........XX",
+        ".........XXX",
+        "........XXX.",
+        ".......XXX..",
+        "......XXX...",
+        "..X..XXX....",
+        "..XXXXX.....",
+        "...XXX......",
+        "...XXXX.....",
+        "..XX..X.....",
+        ".XX.........",
+        "XX..........",
+    ],
+    // Escudo
+    backend: [
+        "XXXXXXXXXXXX",
+        "XXXXXXXXXXXX",
+        "XXXXX..XXXXX",
+        "XXXXX..XXXXX",
+        "XX........XX",
+        "XX........XX",
+        "XXXXX..XXXXX",
+        ".XXXX..XXXX.",
+        ".XXXX..XXXX.",
+        "..XXXXXXXX..",
+        "...XXXXXX...",
+        "....XXXX....",
+    ],
+    // Cofre
+    databases: [
+        "............",
+        ".XXXXXXXXXX.",
+        "XXXXXXXXXXXX",
+        "XXXXXXXXXXXX",
+        ".....XX.....",
+        "XXXXX..XXXXX",
+        "XXXXX..XXXXX",
+        "XXXXXXXXXXXX",
+        "XXXXXXXXXXXX",
+        "XXXXXXXXXXXX",
+        "XXXXXXXXXXXX",
+        "............",
+    ],
+    // Nube
+    aws: [
+        "............",
+        "............",
+        "............",
+        "....XXX.....",
+        "...XXXXX....",
+        "..XXXXXXXXX.",
+        ".XXXXXXXXXXX",
+        "XXXXXXXXXXXX",
+        "XXXXXXXXXXXX",
+        ".XXXXXXXXXX.",
+        "............",
+        "............",
+    ],
+    // Moneda
+    web3: [
+        "....XXXX....",
+        "...XXXXXX...",
+        "..XXXXXXXX..",
+        "..XXX..XXX..",
+        "..XXX..XXX..",
+        "..XXX..XXX..",
+        "..XXX..XXX..",
+        "..XXX..XXX..",
+        "..XXX..XXX..",
+        "..XXXXXXXX..",
+        "...XXXXXX...",
+        "....XXXX....",
+    ],
+    // Llave inglesa
+    tools: [
+        "........X..X",
+        ".......XX..X",
+        ".......XXXXX",
+        "......XXXXX.",
+        ".....XXX....",
+        "....XXX.....",
+        "...XXX......",
+        "..XXX.......",
+        ".XXX........",
+        "XXX.........",
+        "XX..........",
+        "............",
+    ],
+};
+
+/** Iniciales para las tecnologías sin logo: la sigla si empieza con una (ECS, S3), las mayúsculas (CloudWatch → CW) o las dos primeras letras */
+function initials(name: string) {
+    const first = name.split(/[ /]/)[0];
+    if (/^[A-Z0-9]{2,4}$/.test(first)) return first;
+    const capitals = name.replace(/[^A-Z]/g, "");
+    return capitals.length >= 2 ? capitals.slice(0, 3) : name.slice(0, 2).toUpperCase();
+}
+
+const groups = STACK.map((group) => {
+    const info = t.groups[group.id];
+    return {
+        ...group,
+        title: info.title,
+        description: "description" in info ? info.description : undefined,
+        icon: toPaths(ICONS[group.id], { X: "currentColor" }),
+    };
+});
 ---
 
 <section id="stack" aria-labelledby="stack-title" class="container-page py-16">
     <SectionHeader id="stack-title" number="01" title={t.title} subtitle={t.subtitle} />
 
-    <div class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))]">
-        {main.map((group) => {
-            const info = t.groups[group.id as "frontend" | "backend"];
-            return (
-                <article
-                    class:list={["panel reveal p-6", borders[group.id as keyof typeof borders]]}
+    <!-- Pestañas por categoría. Sin JS quedan todas las categorías visibles, una debajo de otra -->
+    <div class="group reveal" data-tabs>
+        <div role="tablist" aria-label={t.title} class="mb-6 flex flex-wrap gap-3" hidden>
+            {groups.map((group, i) => (
+                <button
+                    type="button"
+                    role="tab"
+                    id={`tab-${group.id}`}
+                    aria-controls={`panel-${group.id}`}
+                    aria-selected={i === 0 ? "true" : "false"}
+                    tabindex={i === 0 ? 0 : -1}
+                    class="stack-tab"
                 >
-                    <div class="mb-4 flex items-center justify-between gap-4">
-                        <h3 class="font-pixel text-sm">{info.title}</h3>
-                        <span class="font-pixel text-[0.6rem] text-ink-muted">{info.slot}</span>
-                    </div>
-                    <p class="mb-5 text-ink-soft">{info.description}</p>
-                    <Tags items={group.items} />
-                </article>
-            );
-        })}
-    </div>
+                    <svg class="size-6 shrink-0" viewBox="0 0 12 12" aria-hidden="true">
+                        {group.icon.map((path) => (
+                            <path style={`fill: ${path.fill}`} d={path.d} />
+                        ))}
+                    </svg>
+                    {group.title}
+                </button>
+            ))}
+        </div>
 
-    <div class="mt-8 grid gap-8 grid-cols-[repeat(auto-fit,minmax(min(100%,240px),1fr))]">
-        {secondary.map((group) => (
-            <article class="panel reveal p-5">
-                <h3 class="mb-4 font-pixel text-[0.7rem]">{t.groups[group.id].title}</h3>
-                <Tags items={group.items} />
-            </article>
-        ))}
+        <div class="grid gap-6">
+            {groups.map((group) => (
+                <article
+                    role="tabpanel"
+                    id={`panel-${group.id}`}
+                    aria-labelledby={`tab-${group.id}`}
+                    class="panel p-6"
+                >
+                    <h3 class="mb-4 font-pixel text-sm group-[.is-tabbed]:sr-only">
+                        {group.title}
+                    </h3>
+                    <div class="mb-5 flex items-start justify-between gap-4">
+                        {group.description && <p class="text-ink-soft">{group.description}</p>}
+                        <p class="ml-auto shrink-0 font-pixel text-[0.6rem] leading-6 text-ink-muted">
+                            {t.items} <span class="text-accent">x{group.items.length}</span>
+                        </p>
+                    </div>
+                    <ul class="stack-slots">
+                        {group.items.map((item) => (
+                            <li class="stack-slot">
+                                <span class="stack-slot-icon" aria-hidden="true">
+                                    {item.logo ? (
+                                        <svg viewBox="0 0 24 24">
+                                            <path d={item.logo.path} />
+                                        </svg>
+                                    ) : (
+                                        <span class="font-pixel text-xs">
+                                            {initials(item.name)}
+                                        </span>
+                                    )}
+                                </span>
+                                <span class="stack-slot-name" title={item.name}>
+                                    {item.name}
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                </article>
+            ))}
+        </div>
     </div>
 </section>
+
+<script>
+    import "../scripts/tabs";
+</script>

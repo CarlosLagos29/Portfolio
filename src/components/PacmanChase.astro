@@ -1,6 +1,8 @@
 ---
 // Reemplazo del typewriter: Pac-Man pasa perseguido por los fantasmas y la frase aparece detrás;
 // después vuelven al revés (fantasmas asustados adelante) y la borran. Sprites pixel art como en Avatar.
+import { toPaths } from "../utils/pixelArt";
+
 interface Props {
     phrases: string[];
 }
@@ -81,18 +83,6 @@ const GHOSTS = [
     { color: "#00ffff", orderRight: 2 },
     { color: "#ffb852", orderRight: 1 },
 ];
-
-/** Un <path> por color: cada píxel es un cuadrado de 1×1 */
-function toPaths(map: string[], colors: Record<string, string>) {
-    return Object.entries(colors).map(([letter, fill]) => ({
-        fill,
-        d: map
-            .flatMap((row, y) =>
-                [...row].map((cell, x) => (cell === letter ? `M${x} ${y}h1v1h-1z` : "")),
-            )
-            .join(""),
-    }));
-}
 
 const frames = (a: string[], b: string[], colors: Record<string, string>, cls = "") => [
     { cls: `frame-a ${cls}`, size: a[0].length, paths: toPaths(a, colors) },

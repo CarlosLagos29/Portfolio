@@ -1,6 +1,7 @@
 ---
 // Botón flotante para volver arriba: círculo pixel art 16×16 con una flecha. Aparece al llegar a Inventario.
 import { getDictionary } from "../i18n";
+import { toPaths } from "../utils/pixelArt";
 import type { Locale } from "../types";
 
 interface Props {
@@ -32,12 +33,7 @@ const MAP = [
 // El círculo toma el color del texto (amarillo, cyan en hover); la flecha es del color del fondo
 const COLORS = { X: "currentColor", A: "var(--color-bg)" };
 
-const paths = Object.entries(COLORS).map(([letter, fill]) => ({
-    fill,
-    d: MAP.flatMap((row, y) =>
-        [...row].map((cell, x) => (cell === letter ? `M${x} ${y}h1v1h-1z` : "")),
-    ).join(""),
-}));
+const paths = toPaths(MAP, COLORS);
 ---
 
 <a href="#" class="back-to-top" data-back-to-top>

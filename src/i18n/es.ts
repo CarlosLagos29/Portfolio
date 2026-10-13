@@ -43,17 +43,16 @@ export const es = {
     },
     stack: {
         title: "INVENTARIO",
-        subtitle: "Lo que llevo en la mochila para cada misión.",
+        subtitle: "Lo que llevo para cada misión.",
+        items: "ITEMS",
         groups: {
             frontend: {
                 title: "FRONTEND",
-                slot: "SLOT A",
                 description:
                     "Interfaces con SSR y client-side, editores ricos y diseño responsive.",
             },
             backend: {
                 title: "BACKEND",
-                slot: "SLOT B",
                 description:
                     "APIs REST, autenticación, integraciones con terceros y modelado de datos.",
             },

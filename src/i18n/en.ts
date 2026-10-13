@@ -44,17 +44,16 @@ export const en: Dictionary = {
     },
     stack: {
         title: "INVENTORY",
-        subtitle: "What I carry in my backpack for every quest.",
+        subtitle: "What I carry for every quest.",
+        items: "ITEMS",
         groups: {
             frontend: {
                 title: "FRONTEND",
-                slot: "SLOT A",
                 description:
                     "Server-side and client-side rendered interfaces, rich text editors and responsive design.",
             },
             backend: {
                 title: "BACKEND",
-                slot: "SLOT B",
                 description:
                     "REST APIs, authentication, third-party integrations and data modeling.",
             },

@@ -9,9 +9,15 @@ export interface Localized {
 /** Fecha en formato "AAAA-MM" */
 export type YearMonth = `${number}-${number}`;
 
+/** Tecnología del Inventario. `logo` es un ícono de Simple Icons; si no hay, se muestran las iniciales */
+export interface StackItem {
+    name: string;
+    logo?: { path: string };
+}
+
 export interface StackGroup {
     id: "frontend" | "backend" | "databases" | "aws" | "web3" | "tools";
-    items: string[];
+    items: StackItem[];
 }
 
 export interface ExperienceStage {
