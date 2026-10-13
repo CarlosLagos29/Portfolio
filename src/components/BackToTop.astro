@@ -1,0 +1,66 @@
+---
+// Botón flotante para volver arriba: círculo pixel art 16×16 con una flecha. Aparece al llegar a Inventario.
+import { getDictionary } from "../i18n";
+import type { Locale } from "../types";
+
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getDictionary(locale);
+
+const MAP = [
+    ".....XXXXXX.....",
+    "...XXXXXXXXXX...",
+    "..XXXXXXXXXXXX..",
+    ".XXXXXXAAXXXXXX.",
+    ".XXXXXAAAAXXXXX.",
+    "XXXXXAAAAAAXXXXX",
+    "XXXXAAAAAAAAXXXX",
+    "XXXXXXXAAXXXXXXX",
+    "XXXXXXXAAXXXXXXX",
+    "XXXXXXXAAXXXXXXX",
+    "XXXXXXXAAXXXXXXX",
+    ".XXXXXXAAXXXXXX.",
+    ".XXXXXXXXXXXXXX.",
+    "..XXXXXXXXXXXX..",
+    "...XXXXXXXXXX...",
+    ".....XXXXXX.....",
+];
+
+// El círculo toma el color del texto (amarillo, cyan en hover); la flecha es del color del fondo
+const COLORS = { X: "currentColor", A: "var(--color-bg)" };
+
+const paths = Object.entries(COLORS).map(([letter, fill]) => ({
+    fill,
+    d: MAP.flatMap((row, y) =>
+        [...row].map((cell, x) => (cell === letter ? `M${x} ${y}h1v1h-1z` : "")),
+    ).join(""),
+}));
+---
+
+<a href="#" class="back-to-top" data-back-to-top>
+    <svg viewBox="0 0 16 16" aria-hidden="true">
+        {paths.map((path) => (
+            <path style={`fill: ${path.fill}`} d={path.d} />
+        ))}
+    </svg>
+    <span class="sr-only">{t.a11y.backToTop}</span>
+</a>
+
+<script>
+    const button = document.querySelector<HTMLElement>("[data-back-to-top]");
+    const stack = document.getElementById("stack");
+
+    // Se muestra cuando Inventario (#stack) ya ocupa la mitad de abajo de la pantalla
+    if (button && stack) {
+        const update = () =>
+            button.classList.toggle(
+                "is-visible",
+                stack.getBoundingClientRect().top <= window.innerHeight / 2,
+            );
+        window.addEventListener("scroll", update, { passive: true });
+        update();
+    }
+</script>

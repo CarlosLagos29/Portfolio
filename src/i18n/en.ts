@@ -13,6 +13,8 @@ export const en: Dictionary = {
         home: "Home",
         mainNav: "Main navigation",
         language: "Language",
+        closeMenu: "Close menu",
+        backToTop: "Back to top",
     },
     nav: {
         stack: "Stack",
@@ -23,7 +25,7 @@ export const en: Dictionary = {
     hero: {
         greeting: "Hi, I'm Carlos Lagos",
         role: "Full Stack Developer",
-        phrases: ["VUE · REACT · NEXT.JS", "KOTLIN · SPRING BOOT · NODE", "AWS · DYNAMODB · MYSQL"],
+        phrases: ["VUE · REACT · NEXT.JS", "KOTLIN · SPRING · NODE", "AWS · DYNAMODB · MYSQL"],
         paragraph:
             "I work across the whole process: front end, back end and even infrastructure. I adapt quickly to each new level, enjoy team play, and there's always something else to learn.",
         ctaPrimary: "PRESS START",

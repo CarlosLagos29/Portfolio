@@ -12,6 +12,8 @@ export const es = {
         home: "Inicio",
         mainNav: "Navegación principal",
         language: "Idioma",
+        closeMenu: "Cerrar menú",
+        backToTop: "Volver arriba",
     },
     nav: {
         stack: "Stack",
@@ -22,7 +24,7 @@ export const es = {
     hero: {
         greeting: "Hola, soy Carlos Lagos",
         role: "Full Stack Developer",
-        phrases: ["VUE · REACT · NEXT.JS", "KOTLIN · SPRING BOOT · NODE", "AWS · DYNAMODB · MYSQL"],
+        phrases: ["VUE · REACT · NEXT.JS", "KOTLIN · SPRING · NODE", "AWS · DYNAMODB · MYSQL"],
         paragraph:
             "Estoy en todo el proceso: del front al back y hasta la infraestructura. Me adapto rápido a cada nivel nuevo, disfruto jugar en equipo y siempre hay algo más para aprender.",
         ctaPrimary: "PRESS START",

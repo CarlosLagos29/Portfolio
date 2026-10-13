@@ -1,0 +1,31 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { getDictionary, LOCALES } from "../i18n";
+import type { Locale } from "../types";
+
+interface Props {
+    locale: Locale;
+    class?: string;
+}
+
+const { locale, class: className } = Astro.props;
+const t = getDictionary(locale);
+---
+
+<div class:list={["border-4 border-line", className]} role="group" aria-label={t.a11y.language}>
+    {LOCALES.map((l) => (
+        <a
+            href={getRelativeLocaleUrl(l)}
+            hreflang={l}
+            lang={l}
+            data-lang-switch
+            aria-current={l === locale ? "page" : undefined}
+            class:list={[
+                "inline-grid min-h-11 min-w-11 place-items-center px-2 font-pixel text-[0.65rem] uppercase",
+                l === locale ? "bg-accent text-bg" : "text-ink-soft hover:text-accent",
+            ]}
+        >
+            {l}
+        </a>
+    ))}
+</div>

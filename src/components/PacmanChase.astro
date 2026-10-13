@@ -1,0 +1,201 @@
+---
+// Reemplazo del typewriter: Pac-Man pasa perseguido por los fantasmas y la frase aparece detrás;
+// después vuelven al revés (fantasmas asustados adelante) y la borran. Sprites pixel art como en Avatar.
+interface Props {
+    phrases: string[];
+}
+
+const { phrases } = Astro.props;
+
+const PAC_OPEN = [
+    "....XXXXX....",
+    "..XXXXXXXXX..",
+    ".XXXXXXXXXXX.",
+    ".XXXXXXXXX...",
+    "XXXXXXXX.....",
+    "XXXXXX.......",
+    "XXXX.........",
+    "XXXXXX.......",
+    "XXXXXXXX.....",
+    ".XXXXXXXXX...",
+    ".XXXXXXXXXXX.",
+    "..XXXXXXXXX..",
+    "....XXXXX....",
+];
+const PAC_CLOSED = [
+    "....XXXXX....",
+    "..XXXXXXXXX..",
+    ".XXXXXXXXXXX.",
+    ".XXXXXXXXXXX.",
+    "XXXXXXXXXXXXX",
+    "XXXXXXXXXXXXX",
+    "XXXXXXXXXXXXX",
+    "XXXXXXXXXXXXX",
+    "XXXXXXXXXXXXX",
+    ".XXXXXXXXXXX.",
+    ".XXXXXXXXXXX.",
+    "..XXXXXXXXX..",
+    "....XXXXX....",
+];
+const GHOST = [
+    ".....XXXX.....",
+    "...XXXXXXXX...",
+    "..XXXXXXXXXX..",
+    ".XXXWWXXXXWWX.",
+    ".XXWWWWXXWWWW.",
+    ".XXWWBBXXWWBB.",
+    "XXXWWBBXXWWBBX",
+    "XXXXWWXXXXWWXX",
+    "XXXXXXXXXXXXXX",
+    "XXXXXXXXXXXXXX",
+    "XXXXXXXXXXXXXX",
+    "XXXXXXXXXXXXXX",
+];
+const SCARED = [
+    ".....XXXX.....",
+    "...XXXXXXXX...",
+    "..XXXXXXXXXX..",
+    ".XXXXXXXXXXXX.",
+    ".XXXXXXXXXXXX.",
+    ".XXXPPXXPPXXX.",
+    "XXXXPPXXPPXXXX",
+    "XXXXXXXXXXXXXX",
+    "XXXXXXXXXXXXXX",
+    "XXPPXXPPXXPPXX",
+    "XPXXPPXXPPXXPX",
+    "XXXXXXXXXXXXXX",
+];
+const SKIRT_A = ["XX.XXX..XXX.XX", "X...XX..XX...X"];
+const SKIRT_B = ["XXXX.XXXX.XXXX", ".XX...XX...XX."];
+
+// Colores del arcade
+const PAC_COLORS = { X: "#ffff00" };
+const SCARED_COLORS = { X: "#2121de", P: "#ffb8ae" };
+const ghostColors = (body: string) => ({ X: body, W: "#dedeff", B: "#2121de" });
+
+// A la izquierda la fila es Blinky, Pinky, Inky, Clyde y Pac-Man (orden del HTML);
+// a la derecha se invierten los fantasmas para que Blinky quede pegado a Pac-Man.
+const GHOSTS = [
+    { color: "#ff0000", orderRight: 4 },
+    { color: "#ffb8ff", orderRight: 3 },
+    { color: "#00ffff", orderRight: 2 },
+    { color: "#ffb852", orderRight: 1 },
+];
+
+/** Un <path> por color: cada píxel es un cuadrado de 1×1 */
+function toPaths(map: string[], colors: Record<string, string>) {
+    return Object.entries(colors).map(([letter, fill]) => ({
+        fill,
+        d: map
+            .flatMap((row, y) =>
+                [...row].map((cell, x) => (cell === letter ? `M${x} ${y}h1v1h-1z` : "")),
+            )
+            .join(""),
+    }));
+}
+
+const frames = (a: string[], b: string[], colors: Record<string, string>, cls = "") => [
+    { cls: `frame-a ${cls}`, size: a[0].length, paths: toPaths(a, colors) },
+    { cls: `frame-b ${cls}`, size: b[0].length, paths: toPaths(b, colors) },
+];
+
+const pac = frames(PAC_OPEN, PAC_CLOSED, PAC_COLORS);
+const scared = frames([...SCARED, ...SKIRT_A], [...SCARED, ...SKIRT_B], SCARED_COLORS, "scared");
+const ghosts = GHOSTS.map(({ color, orderRight }) => ({
+    orderRight,
+    svgs: [
+        ...frames([...GHOST, ...SKIRT_A], [...GHOST, ...SKIRT_B], ghostColors(color), "normal"),
+        ...scared,
+    ],
+}));
+---
+
+<p class="chase" data-chase data-phrases={JSON.stringify(phrases)}>
+    <span class="sr-only">{phrases.join(", ")}</span>
+    <span class="chase-track" aria-hidden="true">
+        <span data-chase-text>{phrases[0]}</span>
+        <span class="chase-sprites" data-chase-sprites>
+            {ghosts.map((ghost) => (
+                <span class="chase-sprite" style={`--order-right: ${ghost.orderRight}`}>
+                    {ghost.svgs.map((svg) => (
+                        <svg class={svg.cls} viewBox={`0 0 ${svg.size} ${svg.size}`}>
+                            {svg.paths.map((path) => (
+                                <path fill={path.fill} d={path.d} />
+                            ))}
+                        </svg>
+                    ))}
+                </span>
+            ))}
+            <span class="chase-sprite" style="order: 5">
+                {pac.map((svg) => (
+                    <svg class={svg.cls} viewBox={`0 0 ${svg.size} ${svg.size}`}>
+                        {svg.paths.map((path) => (
+                            <path fill={path.fill} d={path.d} />
+                        ))}
+                    </svg>
+                ))}
+            </span>
+        </span>
+    </span>
+</p>
+
+<script>
+    const STEP_MS = 90; // una letra por paso
+    const PAUSE_MS = 2000; // frase completa en pantalla
+    const GAP_MS = 400; // entre que salen y vuelven a entrar
+    const GROUP_CH = 10; // 5 personajes de 1.5ch + 0.5ch de separación
+
+    const root = document.querySelector<HTMLElement>("[data-chase]");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (root && !reduceMotion) {
+        const text = root.querySelector<HTMLElement>("[data-chase-text]")!;
+        const sprites = root.querySelector<HTMLElement>("[data-chase-sprites]")!;
+        const phrases: string[] = JSON.parse(root.dataset.phrases ?? "[]");
+
+        /** Cuántas letras entran en el ancho disponible */
+        const widthCh = () => {
+            const probe = document.createElement("span");
+            probe.textContent = "0".repeat(10);
+            probe.style.visibility = "hidden";
+            sprites.parentElement!.append(probe);
+            const ch = probe.getBoundingClientRect().width / 10;
+            probe.remove();
+            return Math.ceil(sprites.parentElement!.getBoundingClientRect().width / ch);
+        };
+
+        type Step = { phrase: number; x: number; right: boolean } | { wait: number };
+
+        // Secuencia infinita: x es la posición (en letras) del primer personaje de la fila.
+        // Arranca borrando porque la primera frase ya viene escrita en el HTML.
+        function* timeline(): Generator<Step> {
+            for (let phrase = 0; ;) {
+                for (let x = widthCh() - 1; x >= -GROUP_CH; x--) yield { phrase, x, right: false };
+                yield { wait: GAP_MS };
+                phrase = (phrase + 1) % phrases.length;
+                const width = widthCh();
+                for (let x = -GROUP_CH + 1; x <= width; x++) yield { phrase, x, right: true };
+                yield { wait: PAUSE_MS };
+            }
+        }
+
+        const render = (phrase: number, x: number, right: boolean) => {
+            const full = phrases[phrase];
+            // Las letras llegan hasta donde empieza la fila de personajes
+            text.textContent = full.slice(0, Math.max(0, Math.min(full.length, x)));
+            sprites.style.left = `${x}ch`;
+            root.classList.add("is-running");
+            root.classList.toggle("is-left", !right);
+            root.classList.toggle("is-frame-b");
+        };
+
+        const run = (steps: Generator<Step>) => {
+            const { value } = steps.next();
+            if ("wait" in value) return setTimeout(() => run(steps), value.wait);
+            render(value.phrase, value.x, value.right);
+            setTimeout(() => run(steps), STEP_MS);
+        };
+
+        document.fonts.ready.then(() => setTimeout(() => run(timeline()), PAUSE_MS));
+    }
+</script>

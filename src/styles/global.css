@@ -120,6 +120,100 @@
         background-color: var(--color-accent);
     }
 
+    /* Menú lateral en mobile (<dialog> del Header): entra desde la derecha a saltos */
+    .mobile-menu {
+        width: min(80vw, 320px);
+        max-width: none;
+        height: 100dvh;
+        max-height: none;
+        margin: 0 0 0 auto;
+        border-left: 4px solid var(--color-line);
+        background-color: var(--color-panel);
+        color: var(--color-ink);
+    }
+    .mobile-menu[open] {
+        animation: menu-in 160ms steps(4) both;
+    }
+    .mobile-menu::backdrop {
+        background-color: rgb(0 0 0 / 0.7);
+    }
+
+    /* Botón flotante para volver arriba (BackToTop.astro). Oculto hasta llegar a Inventario */
+    .back-to-top {
+        position: fixed;
+        bottom: max(5%, env(safe-area-inset-bottom));
+        left: 3%;
+        z-index: 30;
+        width: 65px;
+        height: 65px;
+        color: var(--color-accent);
+        visibility: hidden;
+    }
+    @media (max-width: 425px) {
+        .back-to-top {
+            width: 55px;
+            height: 55px;
+        }
+    }
+    .back-to-top.is-visible {
+        visibility: visible;
+    }
+    .back-to-top:hover {
+        color: var(--color-cyan);
+    }
+    .back-to-top svg {
+        width: 100%;
+        height: 100%;
+        shape-rendering: crispEdges;
+        filter: drop-shadow(4px 4px 0 #000);
+    }
+
+    /* Persecución de Pac-Man (PacmanChase.astro). Sin JS o con movimiento reducido
+       queda la primera frase fija y los personajes no se muestran. */
+    .chase-track {
+        position: relative;
+        display: flex;
+        min-height: 2.5em;
+        align-items: center;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    .chase-sprites {
+        position: absolute;
+        top: 50%;
+        display: none;
+        gap: 0.5ch;
+        translate: 0 -50%;
+    }
+    .chase.is-running .chase-sprites {
+        display: flex;
+    }
+    .chase-sprite {
+        width: 1.5ch;
+        height: 1.5ch;
+    }
+    .chase:not(.is-left) .chase-sprite {
+        order: var(--order-right);
+    }
+    .chase.is-left .chase-sprite {
+        transform: scaleX(-1);
+    }
+    .chase-sprite svg {
+        display: none;
+        width: 100%;
+        height: 100%;
+        shape-rendering: crispEdges;
+    }
+    .chase:not(.is-frame-b) .frame-a,
+    .chase.is-frame-b .frame-b {
+        display: block;
+    }
+    /* Al volver los fantasmas están asustados (azules) */
+    .chase.is-left .normal,
+    .chase:not(.is-left) .scared {
+        display: none;
+    }
+
     .block-cursor {
         display: inline-block;
         width: 0.6em;
@@ -184,6 +278,12 @@
     }
     80% {
         color: var(--color-badge);
+    }
+}
+
+@keyframes menu-in {
+    from {
+        translate: 100% 0;
     }
 }
 
