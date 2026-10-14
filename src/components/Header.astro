@@ -1,6 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
 import LanguageSwitch from "./LanguageSwitch.astro";
+import { SHOW_PROJECTS } from "../data/projects";
 import { getDictionary } from "../i18n";
 import type { Locale } from "../types";
 
@@ -15,7 +16,7 @@ const home = getRelativeLocaleUrl(locale);
 const links = [
     { href: "#stack", label: t.nav.stack },
     { href: "#experience", label: t.nav.experience },
-    { href: "#projects", label: t.nav.projects },
+    ...(SHOW_PROJECTS ? [{ href: "#projects", label: t.nav.projects }] : []),
     { href: "#contact", label: t.nav.contact },
 ];
 ---
@@ -28,6 +29,7 @@ const links = [
                 alt=""
                 width="40"
                 height="40"
+                loading="eager"
                 class="size-10 [image-rendering:pixelated]"
             />
             <span class="font-pixel text-[0.7rem] tracking-wide" aria-hidden="true">

@@ -35,7 +35,12 @@ const COLORS: Record<string, string> = {
 const cells = MAP.join("").split("");
 ---
 
-<div class="avatar grid grid-cols-[repeat(16,13px)] grid-rows-[repeat(16,13px)]" aria-hidden="true">
+<!-- --avatar-skin: color de la piel para el parpadeo (animación eye-blink de global.css) -->
+<div
+    class="avatar grid grid-cols-[repeat(16,13px)] grid-rows-[repeat(16,13px)]"
+    style={`--avatar-skin:${COLORS.S}`}
+    aria-hidden="true"
+>
     {cells.map((cell) => (
         <span
             class:list={[{ eye: cell === "E" }]}

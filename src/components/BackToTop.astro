@@ -36,7 +36,7 @@ const COLORS = { X: "currentColor", A: "var(--color-bg)" };
 const paths = toPaths(MAP, COLORS);
 ---
 
-<a href="#" class="back-to-top" data-back-to-top>
+<a href="#hero" class="back-to-top" data-back-to-top>
     <svg viewBox="0 0 16 16" aria-hidden="true">
         {paths.map((path) => (
             <path style={`fill: ${path.fill}`} d={path.d} />

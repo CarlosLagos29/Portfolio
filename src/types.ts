@@ -29,7 +29,7 @@ export interface ExperienceBoss {
 }
 
 /**
- * Una etapa se muestra como MISION + JEFE FINAL + LOOT si tiene `mission`;
+ * Una etapa se muestra como MISION + BOSS FIGHT + LOOT si tiene `mission`;
  * si no, con las viñetas de `achievements` (formato anterior, como en el CV).
  */
 export interface ExperienceStage {
@@ -38,8 +38,11 @@ export interface ExperienceStage {
     mission?: Localized;
     boss?: ExperienceBoss;
     achievements?: Localized[];
-    /** Tecnologías (LOOT). Si el nombre coincide con uno de stack.ts se muestra con su logo */
-    tags?: string[];
+    /**
+     * LOOT. Un string es una tecnología (igual en los dos idiomas; si coincide con un nombre de
+     * stack.ts se muestra con su logo); un Localized es una habilidad que se traduce
+     */
+    tags?: (string | Localized)[];
 }
 
 export interface Experience {

@@ -147,7 +147,7 @@
         color: var(--color-accent);
     }
 
-    /* Etiquetas MISION / JEFE FINAL / LOOT de cada nivel (el color va como utilidad) */
+    /* Etiquetas MISION / BOSS FIGHT / LOOT de cada nivel (el color va como utilidad) */
     .level-label {
         margin-bottom: 0.75rem;
         font-family: var(--font-pixel);
@@ -376,14 +376,12 @@
     }
 }
 
+/* Los ojos mantienen su color del mapa y en el último 5% se pintan del color de la piel
+   (--avatar-skin lo define Avatar.astro), así el parpadeo sigue los colores del avatar */
 @keyframes eye-blink {
-    0%,
-    94% {
-        background-color: #14121f;
-    }
     95%,
     100% {
-        background-color: #f2b880;
+        background-color: var(--avatar-skin);
     }
 }
 

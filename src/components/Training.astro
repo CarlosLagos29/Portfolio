@@ -1,5 +1,6 @@
 ---
 import SectionHeader from "./SectionHeader.astro";
+import { SHOW_PROJECTS } from "../data/projects";
 import { TRAINING } from "../data/training";
 import { getDictionary, localize } from "../i18n";
 import type { Locale } from "../types";
@@ -13,7 +14,12 @@ const t = getDictionary(locale).training;
 ---
 
 <section id="training" aria-labelledby="training-title" class="container-page py-16">
-    <SectionHeader id="training-title" number="04" title={t.title} subtitle={t.subtitle} />
+    <SectionHeader
+        id="training-title"
+        number={SHOW_PROJECTS ? "04" : "03"}
+        title={t.title}
+        subtitle={t.subtitle}
+    />
 
     <ul class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))]">
         {TRAINING.map((item) => (

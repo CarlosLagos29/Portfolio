@@ -1,5 +1,8 @@
 import type { Project } from "../types";
 
+/** Interruptor de Side Quests: en false se ocultan la sección y su link del menú (Entrenamiento pasa a ser 03) */
+export const SHOW_PROJECTS = false;
+
 export const PROJECTS: Project[] = [
     {
         title: "dApp Web3",

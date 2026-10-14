@@ -4,7 +4,7 @@ import Tags from "./Tags.astro";
 import { EXPERIENCE } from "../data/experience";
 import { STACK } from "../data/stack";
 import { formatRange, getDictionary, localize } from "../i18n";
-import type { Locale } from "../types";
+import type { Locale, Localized } from "../types";
 
 interface Props {
     locale: Locale;
@@ -21,6 +21,8 @@ const pad = (level: number) => String(level).padStart(2, "0");
 
 // Logos del Inventario para mostrar el LOOT con el mismo ícono
 const LOGOS = new Map(STACK.flatMap((group) => group.items).map((item) => [item.name, item.logo]));
+const tagLabel = (tag: string | Localized) =>
+    typeof tag === "string" ? tag : localize(tag, locale);
 ---
 
 <section id="experience" aria-labelledby="experience-title" class="container-page py-16">
@@ -123,7 +125,10 @@ const LOGOS = new Map(STACK.flatMap((group) => group.items).map((item) => [item.
                                                 <p class="level-label text-cyan">{t.loot}</p>
                                                 <ul class="flex flex-wrap gap-2">
                                                     {stage.tags.map((tag) => {
-                                                        const logo = LOGOS.get(tag);
+                                                        const logo =
+                                                            typeof tag === "string"
+                                                                ? LOGOS.get(tag)
+                                                                : undefined;
                                                         return (
                                                             <li class="chip inline-flex items-center gap-2">
                                                                 {logo && (
@@ -135,7 +140,7 @@ const LOGOS = new Map(STACK.flatMap((group) => group.items).map((item) => [item.
                                                                         <path d={logo.path} />
                                                                     </svg>
                                                                 )}
-                                                                {tag}
+                                                                {tagLabel(tag)}
                                                             </li>
                                                         );
                                                     })}
@@ -152,7 +157,7 @@ const LOGOS = new Map(STACK.flatMap((group) => group.items).map((item) => [item.
                                         </ul>
                                         {stage.tags && (
                                             <div class="mt-5">
-                                                <Tags items={stage.tags} />
+                                                <Tags items={stage.tags.map(tagLabel)} />
                                             </div>
                                         )}
                                     </>
