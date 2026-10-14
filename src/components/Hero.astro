@@ -1,0 +1,45 @@
+---
+import PacmanChase from "./PacmanChase.astro";
+import PlayerCard from "./PlayerCard.astro";
+import { getDictionary } from "../i18n";
+import type { Locale } from "../types";
+
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getDictionary(locale).hero;
+---
+
+<section id="hero" class="relative isolate py-16 sm:py-20 mobile:py-10">
+    <div class="container-page grid items-center gap-12 grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))]">
+        <div class="reveal">
+            <h1 class="font-pixel">
+                <span class="mb-6 block text-xs text-cyan uppercase">{t.greeting}</span>
+                <span class="block text-[clamp(1.75rem,5vw,3rem)] leading-tight uppercase [text-shadow:5px_5px_0_#000]">
+                    {t.role}
+                </span>
+            </h1>
+
+            <div class="mt-6 font-pixel text-[clamp(0.7rem,1.6vw,0.95rem)] text-cyan">
+                <PacmanChase phrases={t.phrases} />
+            </div>
+
+            <p class="mt-6 max-w-[60ch] text-xl text-ink-soft mobile:text-lg">{t.paragraph}</p>
+
+            <div class="mt-8 flex flex-wrap gap-4">
+                <a href="#experience" class="btn btn-primary">
+                    {t.ctaPrimary}
+                    <span class="sr-only">: {t.ctaPrimaryHint}</span>
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    {t.ctaSecondary}
+                    <span class="sr-only">: {t.ctaSecondaryHint}</span>
+                </a>
+            </div>
+        </div>
+
+        <PlayerCard locale={locale} />
+    </div>
+</section>

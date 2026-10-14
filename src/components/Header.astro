@@ -1,0 +1,129 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import LanguageSwitch from "./LanguageSwitch.astro";
+import { SHOW_PROJECTS } from "../data/projects";
+import { getDictionary } from "../i18n";
+import type { Locale } from "../types";
+
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getDictionary(locale);
+const home = getRelativeLocaleUrl(locale);
+
+const links = [
+    { href: "#stack", label: t.nav.stack },
+    { href: "#experience", label: t.nav.experience },
+    ...(SHOW_PROJECTS ? [{ href: "#projects", label: t.nav.projects }] : []),
+    { href: "#contact", label: t.nav.contact },
+];
+---
+
+<header class="sticky top-0 z-40 border-b-4 border-line bg-bg">
+    <div class="container-page flex items-center justify-between gap-6 py-3">
+        <a href={home} class="flex min-h-11 items-center gap-3" aria-label={t.a11y.home}>
+            <img
+                src="/imgs/cat.gif"
+                alt=""
+                width="40"
+                height="40"
+                loading="eager"
+                class="size-10 [image-rendering:pixelated]"
+            />
+            <span class="font-pixel text-[0.7rem] tracking-wide" aria-hidden="true">
+                CARLOS.LAGOS
+            </span>
+        </a>
+
+        <nav aria-label={t.a11y.mainNav} class="hidden md:block">
+            <ul class="flex items-center gap-1">
+                {links.map((link) => (
+                    <li>
+                        <a
+                            href={link.href}
+                            class="inline-flex min-h-11 items-center px-2 font-pixel text-[0.65rem] text-ink-soft uppercase hover:text-accent"
+                        >
+                            {link.label}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+
+        <LanguageSwitch locale={locale} class="hidden md:flex" />
+
+        <button
+            type="button"
+            class="inline-flex min-h-11 items-center gap-3 border-4 border-line px-3 font-pixel text-[0.65rem] hover:text-accent md:hidden"
+            aria-haspopup="dialog"
+            aria-controls="mobile-menu"
+            data-menu-open
+        >
+            <span class="grid gap-1" aria-hidden="true">
+                <span class="block h-1 w-4 bg-current"></span>
+                <span class="block h-1 w-4 bg-current"></span>
+                <span class="block h-1 w-4 bg-current"></span>
+            </span>
+            MENU
+        </button>
+    </div>
+
+    <dialog id="mobile-menu" class="mobile-menu" aria-label={t.a11y.mainNav} data-menu>
+        <div class="flex h-full flex-col gap-8 p-6">
+            <button
+                type="button"
+                class="ml-auto inline-grid min-h-11 min-w-11 place-items-center border-4 border-line font-pixel text-xs hover:text-accent"
+                data-menu-close
+            >
+                <span aria-hidden="true">X</span>
+                <span class="sr-only">{t.a11y.closeMenu}</span>
+            </button>
+
+            <nav aria-label={t.a11y.mainNav}>
+                <ul class="grid gap-2">
+                    {links.map((link) => (
+                        <li>
+                            <a
+                                href={link.href}
+                                class="flex min-h-11 items-center font-pixel text-sm text-ink-soft uppercase hover:text-accent"
+                                data-menu-link
+                            >
+                                {link.label}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+
+            <LanguageSwitch locale={locale} class="flex self-start" />
+        </div>
+    </dialog>
+</header>
+
+<script>
+    document.querySelectorAll<HTMLAnchorElement>("[data-lang-switch]").forEach((link) => {
+        link.addEventListener("click", () => {
+            if (window.location.hash) link.hash = window.location.hash;
+        });
+    });
+
+    const menu = document.querySelector<HTMLDialogElement>("[data-menu]");
+    if (menu) {
+        const close = () => menu.close();
+        document
+            .querySelector("[data-menu-open]")
+            ?.addEventListener("click", () => menu.showModal());
+        menu.querySelector("[data-menu-close]")?.addEventListener("click", close);
+        menu.querySelectorAll("[data-menu-link]").forEach((link) =>
+            link.addEventListener("click", close),
+        );
+        menu.addEventListener("click", (event) => {
+            if (event.target === menu) close();
+        });
+        window.matchMedia("(min-width: 48rem)").addEventListener("change", (event) => {
+            if (event.matches) close();
+        });
+    }
+</script>

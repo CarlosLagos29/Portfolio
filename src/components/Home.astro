@@ -1,0 +1,36 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "./Header.astro";
+import Stars from "./Stars.astro";
+import Hero from "./Hero.astro";
+import Stack from "./Stack.astro";
+import Experience from "./Experience.astro";
+import Projects from "./Projects.astro";
+import Training from "./Training.astro";
+import Contact from "./Contact.astro";
+import Footer from "./Footer.astro";
+import BackToTop from "./BackToTop.astro";
+import { SHOW_PROJECTS } from "../data/projects";
+import type { Locale } from "../types";
+
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<Layout locale={locale}>
+    <Stars />
+    <Header locale={locale} />
+    <main id="main">
+        <Hero locale={locale} />
+        <Stack locale={locale} />
+        <Experience locale={locale} />
+        {SHOW_PROJECTS && <Projects locale={locale} />}
+        <Training locale={locale} />
+        <Contact locale={locale} />
+    </main>
+    <Footer locale={locale} />
+    <BackToTop locale={locale} />
+</Layout>

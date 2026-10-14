@@ -1,0 +1,48 @@
+---
+const MAP = [
+    "....KKKKKKKK....",
+    "..KKHLHHLHHLKK..",
+    "..KHLHhHLHhHLK..",
+    "..KhHhHLHhHLhK..",
+    "..KhHSHSSSHShK..",
+    "..KSSSSSSSSSSK..",
+    "..KSSESSSSESSK..",
+    "..KSSESSSSESSK..",
+    "..KSSSSSSSSSSK..",
+    "..KsSSSKKSSSsK..",
+    "...KsSSSSSSsK...",
+    "....KKSSSSKK....",
+    "..KKCCKSSKCCKK..",
+    ".KCCCCCKKCCCCCK.",
+    ".KCCcCCCCCCcCCK.",
+    ".KCCcCCYYCCcCCK.",
+];
+
+const COLORS: Record<string, string> = {
+    K: "#14121f",
+    H: "#715735",
+    h: "#4a3722",
+    L: "#8f7048",
+    S: "#ecbfaa",
+    s: "#c98f7c",
+    E: "#2b1f1b",
+    C: "#3a3842",
+    c: "#25242b",
+    Y: "var(--color-accent)",
+};
+
+const cells = MAP.join("").split("");
+---
+
+<div
+    class="avatar grid grid-cols-[repeat(16,13px)] grid-rows-[repeat(16,13px)]"
+    style={`--avatar-skin:${COLORS.S}`}
+    aria-hidden="true"
+>
+    {cells.map((cell) => (
+        <span
+            class:list={[{ eye: cell === "E" }]}
+            style={COLORS[cell] ? `background:${COLORS[cell]}` : undefined}
+        />
+    ))}
+</div>

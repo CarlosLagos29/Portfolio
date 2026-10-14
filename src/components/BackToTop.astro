@@ -1,0 +1,65 @@
+---
+import { getDictionary } from "../i18n";
+import { toPaths } from "../utils/pixelArt";
+import type { Locale } from "../types";
+
+interface Props {
+    locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getDictionary(locale);
+
+const MAP = [
+    ".....XXXXXX.....",
+    "...XXXXXXXXXX...",
+    "..XXXXXXXXXXXX..",
+    ".XXXXXXAAXXXXXX.",
+    ".XXXXXAAAAXXXXX.",
+    "XXXXXAAAAAAXXXXX",
+    "XXXXAAAAAAAAXXXX",
+    "XXXXXXXAAXXXXXXX",
+    "XXXXXXXAAXXXXXXX",
+    "XXXXXXXAAXXXXXXX",
+    "XXXXXXXAAXXXXXXX",
+    ".XXXXXXAAXXXXXX.",
+    ".XXXXXXXXXXXXXX.",
+    "..XXXXXXXXXXXX..",
+    "...XXXXXXXXXX...",
+    ".....XXXXXX.....",
+];
+
+const COLORS = { X: "currentColor", A: "var(--color-bg)" };
+
+const paths = toPaths(MAP, COLORS);
+---
+
+<a href="#hero" class="back-to-top" data-back-to-top>
+    <svg viewBox="0 0 16 16" aria-hidden="true">
+        {paths.map((path) => (
+            <path style={`fill: ${path.fill}`} d={path.d} />
+        ))}
+    </svg>
+    <span class="sr-only">{t.a11y.backToTop}</span>
+</a>
+
+<script>
+    const button = document.querySelector<HTMLElement>("[data-back-to-top]");
+    const stack = document.getElementById("stack");
+    const footer = document.querySelector("footer");
+    const GAP = 16;
+
+    if (button && stack) {
+        const update = () => {
+            button.classList.toggle(
+                "is-visible",
+                stack.getBoundingClientRect().top <= window.innerHeight / 2,
+            );
+            const overlap = footer ? window.innerHeight - footer.getBoundingClientRect().top : 0;
+            button.style.setProperty("--above-footer", `${Math.max(0, overlap + GAP)}px`);
+        };
+        window.addEventListener("scroll", update, { passive: true });
+        window.addEventListener("resize", update);
+        update();
+    }
+</script>
