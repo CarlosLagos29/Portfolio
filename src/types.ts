@@ -1,15 +1,12 @@
 export type Locale = "es" | "en";
 
-/** Texto en los dos idiomas del sitio */
 export interface Localized {
     es: string;
     en: string;
 }
 
-/** Fecha en formato "AAAA-MM" */
 export type YearMonth = `${number}-${number}`;
 
-/** Tecnología del Inventario. `logo` es un ícono de Simple Icons; si no hay, se muestran las iniciales */
 export interface StackItem {
     name: string;
     logo?: { path: string };
@@ -20,7 +17,6 @@ export interface StackGroup {
     items: StackItem[];
 }
 
-/** El problema más difícil de una etapa, contado como antes → lo que hice → después */
 export interface ExperienceBoss {
     title: Localized;
     before: Localized;
@@ -28,20 +24,12 @@ export interface ExperienceBoss {
     after: Localized;
 }
 
-/**
- * Una etapa se muestra como MISION + BOSS FIGHT + LOOT si tiene `mission`;
- * si no, con las viñetas de `achievements` (formato anterior, como en el CV).
- */
 export interface ExperienceStage {
     title?: Localized;
     meta?: Localized;
     mission?: Localized;
     boss?: ExperienceBoss;
     achievements?: Localized[];
-    /**
-     * LOOT. Un string es una tecnología (igual en los dos idiomas; si coincide con un nombre de
-     * stack.ts se muestra con su logo); un Localized es una habilidad que se traduce
-     */
     tags?: (string | Localized)[];
 }
 
@@ -60,13 +48,12 @@ export interface Project {
     tags: string[];
     repo?: string;
     demo?: string;
-    /** muestra el badge "EN REMODELACIÓN" */
     remodel?: boolean;
-    /** captura del proyecto; si falta se muestra un placeholder */
     image?: string;
 }
 
 export interface Training {
+    icon: "graduation" | "book" | "language";
     period: Localized;
     title: Localized;
     place: Localized;

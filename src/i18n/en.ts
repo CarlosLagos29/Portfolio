@@ -86,11 +86,12 @@ export const en: Dictionary = {
     training: {
         title: "TRAINING",
         subtitle: "Where I leveled up.",
+        unlocked: "ACHIEVEMENT UNLOCKED",
     },
     contact: {
         title: "CONTINUE?",
-        text: "I'm looking for my next team. If you have an open position or a project in mind, drop me a line.",
-        email: "SEND EMAIL",
+        text: "Need a new player on your team? Drop me a line.",
+        email: "EMAIL",
         linkedin: "LINKEDIN",
         github: "GITHUB",
         cv: "DOWNLOAD CV",

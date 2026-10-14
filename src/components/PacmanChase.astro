@@ -1,6 +1,4 @@
 ---
-// Reemplazo del typewriter: Pac-Man pasa perseguido por los fantasmas y la frase aparece detrás;
-// después vuelven al revés (fantasmas asustados adelante) y la borran. Sprites pixel art como en Avatar.
 import { toPaths } from "../utils/pixelArt";
 
 interface Props {
@@ -70,13 +68,10 @@ const SCARED = [
 const SKIRT_A = ["XX.XXX..XXX.XX", "X...XX..XX...X"];
 const SKIRT_B = ["XXXX.XXXX.XXXX", ".XX...XX...XX."];
 
-// Colores del arcade
 const PAC_COLORS = { X: "#ffff00" };
 const SCARED_COLORS = { X: "#2121de", P: "#ffb8ae" };
 const ghostColors = (body: string) => ({ X: body, W: "#dedeff", B: "#2121de" });
 
-// A la izquierda la fila es Blinky, Pinky, Inky, Clyde y Pac-Man (orden del HTML);
-// a la derecha se invierten los fantasmas para que Blinky quede pegado a Pac-Man.
 const GHOSTS = [
     { color: "#ff0000", orderRight: 4 },
     { color: "#ffb8ff", orderRight: 3 },
@@ -130,10 +125,10 @@ const ghosts = GHOSTS.map(({ color, orderRight }) => ({
 </p>
 
 <script>
-    const STEP_MS = 90; // una letra por paso
-    const PAUSE_MS = 2000; // frase completa en pantalla
-    const GAP_MS = 400; // entre que salen y vuelven a entrar
-    const GROUP_CH = 10; // 5 personajes de 1.5ch + 0.5ch de separación
+    const STEP_MS = 90;
+    const PAUSE_MS = 2000;
+    const GAP_MS = 400;
+    const GROUP_CH = 10;
 
     const root = document.querySelector<HTMLElement>("[data-chase]");
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -143,7 +138,6 @@ const ghosts = GHOSTS.map(({ color, orderRight }) => ({
         const sprites = root.querySelector<HTMLElement>("[data-chase-sprites]")!;
         const phrases: string[] = JSON.parse(root.dataset.phrases ?? "[]");
 
-        /** Cuántas letras entran en el ancho disponible */
         const widthCh = () => {
             const probe = document.createElement("span");
             probe.textContent = "0".repeat(10);
@@ -156,8 +150,6 @@ const ghosts = GHOSTS.map(({ color, orderRight }) => ({
 
         type Step = { phrase: number; x: number; right: boolean } | { wait: number };
 
-        // Secuencia infinita: x es la posición (en letras) del primer personaje de la fila.
-        // Arranca borrando porque la primera frase ya viene escrita en el HTML.
         function* timeline(): Generator<Step> {
             for (let phrase = 0; ;) {
                 for (let x = widthCh() - 1; x >= -GROUP_CH; x--) yield { phrase, x, right: false };
@@ -171,7 +163,6 @@ const ghosts = GHOSTS.map(({ color, orderRight }) => ({
 
         const render = (phrase: number, x: number, right: boolean) => {
             const full = phrases[phrase];
-            // Las letras llegan hasta donde empieza la fila de personajes
             text.textContent = full.slice(0, Math.max(0, Math.min(full.length, x)));
             sprites.style.left = `${x}ch`;
             root.classList.add("is-running");

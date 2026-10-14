@@ -12,7 +12,6 @@ export function getDictionary(locale: Locale): Dictionary {
     return DICTIONARIES[locale];
 }
 
-/** Devuelve el texto de un campo bilingüe en el idioma pedido */
 export function localize(text: Localized, locale: Locale): string {
     return text[locale];
 }
@@ -25,7 +24,6 @@ function monthName(date: YearMonth, locale: Locale): string {
     return name.charAt(0).toUpperCase() + name.slice(1);
 }
 
-/** "Ago – Oct 2024" si es el mismo año, "Oct 2024 – Sep 2026" si no */
 export function formatRange(start: YearMonth, end: YearMonth, locale: Locale): string {
     const startYear = start.slice(0, 4);
     const endYear = end.slice(0, 4);

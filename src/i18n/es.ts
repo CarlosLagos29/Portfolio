@@ -85,11 +85,12 @@ export const es = {
     training: {
         title: "ENTRENAMIENTO",
         subtitle: "Dónde subí de nivel.",
+        unlocked: "LOGRO DESBLOQUEADO",
     },
     contact: {
         title: "¿CONTINUAR?",
-        text: "Estoy buscando mi próximo equipo. Si tenés una posición abierta o un proyecto en mente, escribime.",
-        email: "ENVIAR EMAIL",
+        text: "¿Necesitás un nuevo jugador en tu equipo? Escribime.",
+        email: "EMAIL",
         linkedin: "LINKEDIN",
         github: "GITHUB",
         cv: "DESCARGAR CV",

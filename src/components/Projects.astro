@@ -13,7 +13,7 @@ const { locale } = Astro.props;
 const t = getDictionary(locale).projects;
 ---
 
-<section id="projects" aria-labelledby="projects-title" class="container-page py-16">
+<section id="projects" aria-labelledby="projects-title" class="container-page py-16 mobile:py-10">
     <SectionHeader id="projects-title" number="03" title={t.title} subtitle={t.subtitle} />
 
     <div class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))]">
@@ -33,7 +33,7 @@ const t = getDictionary(locale).projects;
                     </div>
                 )}
 
-                <div class="flex flex-1 flex-col p-6">
+                <div class="flex flex-1 flex-col p-6 mobile:p-4">
                     <div class="mb-3 flex flex-wrap items-center gap-3">
                         <h3 class="font-pixel text-sm leading-snug">{project.title}</h3>
                         {project.remodel && (

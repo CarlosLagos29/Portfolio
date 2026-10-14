@@ -2,11 +2,13 @@ import type { Training } from "../types";
 
 export const TRAINING: Training[] = [
     {
+        icon: "graduation",
         period: { es: "2023 · 800 hs", en: "2023 · 800 hrs" },
         title: { es: "Full Stack Web Developer", en: "Full Stack Web Developer" },
         place: { es: "Henry Bootcamp", en: "Henry Bootcamp" },
     },
     {
+        icon: "book",
         period: { es: "2014 – 2019", en: "2014 – 2019" },
         title: {
             es: "Bachiller en Economía y Administración de Empresas",
@@ -15,6 +17,7 @@ export const TRAINING: Training[] = [
         place: { es: "Educación secundaria", en: "Secondary education" },
     },
     {
+        icon: "language",
         period: { es: "Idioma", en: "Language" },
         title: { es: "Inglés B2", en: "English B2" },
         place: {

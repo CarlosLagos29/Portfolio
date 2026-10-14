@@ -13,22 +13,23 @@ interface Props {
 const { locale } = Astro.props;
 const t = getDictionary(locale).experience;
 
-// El mapa va del primer nivel al último; los paneles (y la vista sin JS) del último al primero
 const levels = [...EXPERIENCE].sort((a, b) => a.level - b.level);
 const jobs = [...levels].reverse();
 const latest = jobs[0].level;
 const pad = (level: number) => String(level).padStart(2, "0");
 
-// Logos del Inventario para mostrar el LOOT con el mismo ícono
 const LOGOS = new Map(STACK.flatMap((group) => group.items).map((item) => [item.name, item.logo]));
 const tagLabel = (tag: string | Localized) =>
     typeof tag === "string" ? tag : localize(tag, locale);
 ---
 
-<section id="experience" aria-labelledby="experience-title" class="container-page py-16">
+<section
+    id="experience"
+    aria-labelledby="experience-title"
+    class="container-page py-16 mobile:py-10"
+>
     <SectionHeader id="experience-title" number="02" title={t.title} subtitle={t.subtitle} />
 
-    <!-- Mapa de niveles: cada nivel es una pestaña; arranca en el último. Sin JS se ven todos -->
     <div class="reveal" data-tabs>
         <div role="tablist" aria-label={t.title} class="level-map" hidden>
             {levels.map((job) => (
@@ -57,7 +58,7 @@ const tagLabel = (tag: string | Localized) =>
                     aria-labelledby={`tab-level-${job.level}`}
                     class="panel"
                 >
-                    <header class="flex flex-wrap items-start justify-between gap-4 border-b-4 border-line p-6">
+                    <header class="flex flex-wrap items-start justify-between gap-4 border-b-4 border-line p-6 mobile:p-4">
                         <div>
                             <span class="mb-4 inline-block bg-accent px-2 py-1 font-pixel text-[0.6rem] text-bg">
                                 {t.level} {pad(job.level)}
@@ -65,18 +66,20 @@ const tagLabel = (tag: string | Localized) =>
                             <h3 class="font-pixel text-[clamp(0.9rem,2vw,1.15rem)] leading-snug">
                                 {job.company}
                             </h3>
-                            <p class="mt-2 text-xl text-cyan">{localize(job.role, locale)}</p>
+                            <p class="mt-2 text-xl text-cyan mobile:text-lg">
+                                {localize(job.role, locale)}
+                            </p>
                         </div>
                         <p class="font-pixel text-[0.6rem] leading-6 text-ink-muted">
                             {formatRange(job.start, job.end, locale)}
                         </p>
                     </header>
 
-                    <div class="flex flex-col gap-8 p-6">
+                    <div class="flex flex-col gap-8 p-6 mobile:p-4">
                         {job.stages.map((stage) => (
                             <div>
                                 {stage.title && (
-                                    <h4 class="text-xl font-semibold text-ink">
+                                    <h4 class="text-xl font-semibold text-ink mobile:text-lg">
                                         {localize(stage.title, locale)}
                                     </h4>
                                 )}
@@ -96,7 +99,7 @@ const tagLabel = (tag: string | Localized) =>
                                         </div>
 
                                         {stage.boss && (
-                                            <div class="border-4 border-line bg-bg p-5">
+                                            <div class="border-4 border-line bg-bg p-5 mobile:p-4">
                                                 <p class="level-label text-danger">
                                                     {t.boss}: {localize(stage.boss.title, locale)}
                                                 </p>

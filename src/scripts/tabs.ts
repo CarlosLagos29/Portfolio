@@ -1,6 +1,3 @@
-// Pestañas accesibles (patrón tabs de WAI-ARIA) para cada [data-tabs]: Inventario y Niveles.
-// La pestaña inicial es la que viene con aria-selected="true" en el HTML.
-// Sin JS el tablist queda oculto y se ven todos los paneles.
 for (const root of document.querySelectorAll<HTMLElement>("[data-tabs]")) {
     const tablist = root.querySelector<HTMLElement>("[role=tablist]")!;
     const tabs = [...tablist.querySelectorAll<HTMLElement>("[role=tab]")];
@@ -18,7 +15,6 @@ for (const root of document.querySelectorAll<HTMLElement>("[data-tabs]")) {
 
     tabs.forEach((tab, i) => {
         tab.addEventListener("click", () => select(i));
-        // Flechas, Inicio y Fin mueven entre pestañas
         tab.addEventListener("keydown", (event) => {
             const last = tabs.length - 1;
             const next = {

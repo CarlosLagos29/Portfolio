@@ -167,7 +167,6 @@ export const EXPERIENCE: Experience[] = [
     },
 ];
 
-/** Años completos trabajados, sin contar dos veces los meses en que se superponen trabajos */
 function experienceYears(): number {
     const months = new Set<number>();
     for (const { start, end } of EXPERIENCE) {

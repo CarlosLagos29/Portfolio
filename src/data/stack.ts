@@ -41,7 +41,6 @@ import {
 } from "simple-icons";
 import type { StackGroup } from "../types";
 
-// Logos de Simple Icons (simpleicons.org): se importan como si<Slug>. Sin `logo` se muestran las iniciales
 export const STACK: StackGroup[] = [
     {
         id: "frontend",

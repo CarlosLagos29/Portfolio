@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant mobile (@media (max-width: 425px));
+
 @theme {
     --color-bg: #0e0d1a;
     --color-panel: #18172b;
@@ -22,7 +24,6 @@
     --shadow-hard-sm: 6px 6px 0 #000;
 }
 
-/* Tailwind 4 dejó los botones con cursor default; se mantiene el comportamiento de v3 */
 @layer base {
     button:not(:disabled),
     [role="button"]:not(:disabled) {
@@ -38,6 +39,7 @@
         background-color: var(--color-bg);
         color: var(--color-ink);
         font-family: var(--font-body);
+        text-wrap: pretty;
     }
 
     :focus-visible {
@@ -91,7 +93,6 @@
         color: var(--color-accent);
     }
 
-    /* Mapa de niveles (Experience.astro): nodos unidos por un camino punteado */
     .level-map {
         position: relative;
         display: flex;
@@ -147,7 +148,6 @@
         color: var(--color-accent);
     }
 
-    /* Etiquetas MISION / BOSS FIGHT / LOOT de cada nivel (el color va como utilidad) */
     .level-label {
         margin-bottom: 0.75rem;
         font-family: var(--font-pixel);
@@ -155,7 +155,11 @@
         line-height: 1.6;
     }
 
-    /* Pestañas de categoría de Inventario (Stack.astro) */
+    .stack-tablist {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
     .stack-tab {
         display: inline-flex;
         min-height: 44px;
@@ -168,7 +172,7 @@
         text-transform: uppercase;
         color: var(--color-ink-soft);
     }
-    /* Press Start 2P dibuja las mayúsculas un poco altas en su caja: se sube el ícono para centrarlo */
+
     .stack-tab svg {
         translate: 0 -0.2em;
     }
@@ -182,7 +186,6 @@
         color: var(--color-bg);
     }
 
-    /* Slots de inventario con logo (Stack.astro) */
     .stack-slots {
         display: grid;
         grid-template-columns: repeat(auto-fill, 88px);
@@ -211,7 +214,7 @@
         height: 32px;
         fill: currentColor;
     }
-    /* Una sola línea: si el nombre no entra se corta con "…" (completo en el title) */
+
     .stack-slot-name {
         max-width: 100%;
         overflow: hidden;
@@ -223,6 +226,38 @@
     }
     .stack-slot:hover .stack-slot-icon {
         border-color: var(--color-accent);
+    }
+
+    @media (max-width: 425px) {
+        .stack-tablist {
+            flex-wrap: nowrap;
+            gap: 0.5rem;
+            margin-inline: -0.5rem;
+            padding: 0.5rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .stack-tablist::-webkit-scrollbar {
+            display: none;
+        }
+        .stack-tab {
+            flex-shrink: 0;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.55rem;
+        }
+        .stack-slots {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem 0.75rem;
+        }
+        .stack-slot-icon {
+            width: 56px;
+            height: 56px;
+        }
+        .stack-slot-icon svg {
+            width: 28px;
+            height: 28px;
+        }
     }
 
     .chip {
@@ -239,7 +274,6 @@
         transform: translateY(-3px);
     }
 
-    /* Viñeta cuadrada de 8px en acento */
     .pixel-list > li {
         position: relative;
         padding-left: 1.25rem;
@@ -254,7 +288,6 @@
         background-color: var(--color-accent);
     }
 
-    /* Menú lateral en mobile (<dialog> del Header): entra desde la derecha a saltos */
     .mobile-menu {
         width: min(80vw, 320px);
         max-width: none;
@@ -272,10 +305,9 @@
         background-color: rgb(0 0 0 / 0.7);
     }
 
-    /* Botón flotante para volver arriba (BackToTop.astro). Oculto hasta llegar a Inventario */
     .back-to-top {
         position: fixed;
-        bottom: max(5%, env(safe-area-inset-bottom));
+        bottom: max(5%, env(safe-area-inset-bottom), var(--above-footer, 0px));
         left: 3%;
         z-index: 30;
         width: 65px;
@@ -302,8 +334,6 @@
         filter: drop-shadow(4px 4px 0 #000);
     }
 
-    /* Persecución de Pac-Man (PacmanChase.astro). Sin JS o con movimiento reducido
-       queda la primera frase fija y los personajes no se muestran. */
     .chase-track {
         position: relative;
         display: flex;
@@ -342,7 +372,7 @@
     .chase.is-frame-b .frame-b {
         display: block;
     }
-    /* Al volver los fantasmas están asustados (azules) */
+
     .chase.is-left .normal,
     .chase:not(.is-left) .scared {
         display: none;
@@ -359,8 +389,6 @@
     }
 }
 
-/* ---------- Animaciones: todas "a saltos" ---------- */
-
 @keyframes blink {
     50% {
         opacity: 0;
@@ -376,8 +404,6 @@
     }
 }
 
-/* Los ojos mantienen su color del mapa y en el último 5% se pintan del color de la piel
-   (--avatar-skin lo define Avatar.astro), así el parpadeo sigue los colores del avatar */
 @keyframes eye-blink {
     95%,
     100% {
@@ -394,7 +420,6 @@
     }
 }
 
-/* Un cambio de color cada 650ms (no más rápido, por fotosensibilidad) */
 @keyframes continue-colors {
     0% {
         color: var(--color-accent);
@@ -452,8 +477,6 @@
     animation: continue-colors 3.25s step-end infinite;
 }
 
-/* Reveal al hacer scroll. Usa `translate` (no `transform`) para no chocar con los hovers.
-   Sin soporte de animation-timeline los elementos simplemente se ven desde el inicio. */
 @supports (animation-timeline: view()) {
     .reveal {
         animation: reveal linear both;

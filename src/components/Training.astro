@@ -3,7 +3,8 @@ import SectionHeader from "./SectionHeader.astro";
 import { SHOW_PROJECTS } from "../data/projects";
 import { TRAINING } from "../data/training";
 import { getDictionary, localize } from "../i18n";
-import type { Locale } from "../types";
+import type { Locale, Training } from "../types";
+import { toPaths } from "../utils/pixelArt";
 
 interface Props {
     locale: Locale;
@@ -11,9 +12,55 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getDictionary(locale).training;
+
+const ICONS: Record<Training["icon"], string[]> = {
+    graduation: [
+        "............",
+        ".....XX.....",
+        "...XXXXXX...",
+        ".XXXXXXXXXX.",
+        "XXXXXXXXXXXX",
+        ".XXXXXXXXXX.",
+        "..XXXXXXXX.X",
+        "..XX....XX.X",
+        "..XXXXXXXX.X",
+        "...XXXXXX..X",
+        "..........XX",
+        "............",
+    ],
+    book: [
+        ".XXXXXXXXXX.",
+        ".X.XXXXXXXXX",
+        ".X.XXX...XXX",
+        ".X.XXXXXXXXX",
+        ".X.XXX...XXX",
+        ".X.XXXXXXXXX",
+        ".X.XXXXXXXXX",
+        ".X.XXXXXXXXX",
+        ".X.XXXXXXXXX",
+        ".X..........",
+        ".XXXXXXXXXXX",
+        "............",
+    ],
+    language: [
+        "............",
+        ".XXXXXXXXXX.",
+        "XXXXXXXXXXXX",
+        "XXXXXXXXXXXX",
+        "XXX.XX.XX.XX",
+        "XXX.XX.XX.XX",
+        "XXXXXXXXXXXX",
+        "XXXXXXXXXXXX",
+        ".XXXXXXXXXX.",
+        "..XXX.......",
+        "..XX........",
+        "..X.........",
+    ],
+};
+const icon = (name: Training["icon"]) => toPaths(ICONS[name], { X: "currentColor" });
 ---
 
-<section id="training" aria-labelledby="training-title" class="container-page py-16">
+<section id="training" aria-labelledby="training-title" class="container-page py-16 mobile:py-10">
     <SectionHeader
         id="training-title"
         number={SHOW_PROJECTS ? "04" : "03"}
@@ -23,11 +70,19 @@ const t = getDictionary(locale).training;
 
     <ul class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(min(100%,280px),1fr))]">
         {TRAINING.map((item) => (
-            <li class="panel reveal p-6">
+            <li class="panel reveal p-6 mobile:p-4">
+                <div class="mb-5 flex items-center gap-3 text-accent" aria-hidden="true">
+                    <svg class="size-8 shrink-0" viewBox="0 0 12 12">
+                        {icon(item.icon).map((path) => (
+                            <path style={`fill: ${path.fill}`} d={path.d} />
+                        ))}
+                    </svg>
+                    <span class="font-pixel text-[0.55rem] leading-relaxed">{t.unlocked}</span>
+                </div>
                 <p class="mb-4 font-pixel text-[0.6rem] text-cyan">
                     {localize(item.period, locale)}
                 </p>
-                <h3 class="text-xl font-semibold">{localize(item.title, locale)}</h3>
+                <h3 class="text-xl font-semibold mobile:text-lg">{localize(item.title, locale)}</h3>
                 <p class="mt-2 text-ink-muted">{localize(item.place, locale)}</p>
             </li>
         ))}

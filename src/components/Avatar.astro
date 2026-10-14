@@ -1,5 +1,4 @@
 ---
-// Avatar pixel art 16×16 dibujado con CSS grid. Cada letra es un color; "." es transparente.
 const MAP = [
     "....KKKKKKKK....",
     "..KKHLHHLHHLKK..",
@@ -35,7 +34,6 @@ const COLORS: Record<string, string> = {
 const cells = MAP.join("").split("");
 ---
 
-<!-- --avatar-skin: color de la piel para el parpadeo (animación eye-blink de global.css) -->
 <div
     class="avatar grid grid-cols-[repeat(16,13px)] grid-rows-[repeat(16,13px)]"
     style={`--avatar-skin:${COLORS.S}`}

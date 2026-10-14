@@ -12,7 +12,7 @@ const { locale } = Astro.props;
 const t = getDictionary(locale).hero;
 ---
 
-<section id="hero" class="relative isolate py-16 sm:py-20">
+<section id="hero" class="relative isolate py-16 sm:py-20 mobile:py-10">
     <div class="container-page grid items-center gap-12 grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))]">
         <div class="reveal">
             <h1 class="font-pixel">
@@ -26,7 +26,7 @@ const t = getDictionary(locale).hero;
                 <PacmanChase phrases={t.phrases} />
             </div>
 
-            <p class="mt-6 max-w-[60ch] text-xl text-ink-soft">{t.paragraph}</p>
+            <p class="mt-6 max-w-[60ch] text-xl text-ink-soft mobile:text-lg">{t.paragraph}</p>
 
             <div class="mt-8 flex flex-wrap gap-4">
                 <a href="#experience" class="btn btn-primary">

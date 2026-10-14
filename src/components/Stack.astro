@@ -12,9 +12,7 @@ interface Props {
 const { locale } = Astro.props;
 const t = getDictionary(locale).stack;
 
-// Íconos pixel art 12×12 de cada pestaña, de un solo color (toman el color del texto)
 const ICONS: Record<StackGroup["id"], string[]> = {
-    // Espada
     frontend: [
         "..........XX",
         ".........XXX",
@@ -29,7 +27,6 @@ const ICONS: Record<StackGroup["id"], string[]> = {
         ".XX.........",
         "XX..........",
     ],
-    // Escudo
     backend: [
         "XXXXXXXXXXXX",
         "XXXXXXXXXXXX",
@@ -44,7 +41,6 @@ const ICONS: Record<StackGroup["id"], string[]> = {
         "...XXXXXX...",
         "....XXXX....",
     ],
-    // Cofre
     databases: [
         "............",
         ".XXXXXXXXXX.",
@@ -59,7 +55,6 @@ const ICONS: Record<StackGroup["id"], string[]> = {
         "XXXXXXXXXXXX",
         "............",
     ],
-    // Nube
     aws: [
         "............",
         "............",
@@ -74,7 +69,6 @@ const ICONS: Record<StackGroup["id"], string[]> = {
         "............",
         "............",
     ],
-    // Moneda
     web3: [
         "....XXXX....",
         "...XXXXXX...",
@@ -89,7 +83,6 @@ const ICONS: Record<StackGroup["id"], string[]> = {
         "...XXXXXX...",
         "....XXXX....",
     ],
-    // Llave inglesa
     tools: [
         "........X..X",
         ".......XX..X",
@@ -106,7 +99,6 @@ const ICONS: Record<StackGroup["id"], string[]> = {
     ],
 };
 
-/** Iniciales para las tecnologías sin logo: la sigla si empieza con una (ECS, S3), las mayúsculas (CloudWatch → CW) o las dos primeras letras */
 function initials(name: string) {
     const first = name.split(/[ /]/)[0];
     if (/^[A-Z0-9]{2,4}$/.test(first)) return first;
@@ -125,12 +117,11 @@ const groups = STACK.map((group) => {
 });
 ---
 
-<section id="stack" aria-labelledby="stack-title" class="container-page py-16">
+<section id="stack" aria-labelledby="stack-title" class="container-page py-16 mobile:py-10">
     <SectionHeader id="stack-title" number="01" title={t.title} subtitle={t.subtitle} />
 
-    <!-- Pestañas por categoría. Sin JS quedan todas las categorías visibles, una debajo de otra -->
     <div class="group reveal" data-tabs>
-        <div role="tablist" aria-label={t.title} class="mb-6 flex flex-wrap gap-3" hidden>
+        <div role="tablist" aria-label={t.title} class="stack-tablist mb-6" hidden>
             {groups.map((group, i) => (
                 <button
                     type="button"
@@ -157,12 +148,12 @@ const groups = STACK.map((group) => {
                     role="tabpanel"
                     id={`panel-${group.id}`}
                     aria-labelledby={`tab-${group.id}`}
-                    class="panel p-6"
+                    class="panel p-6 mobile:p-4"
                 >
                     <h3 class="mb-4 font-pixel text-sm group-[.is-tabbed]:sr-only">
                         {group.title}
                     </h3>
-                    <div class="mb-5 flex items-start justify-between gap-4">
+                    <div class="mb-5 flex items-start justify-between gap-4 mobile:flex-col-reverse mobile:gap-2">
                         {group.description && <p class="text-ink-soft">{group.description}</p>}
                         <p class="ml-auto shrink-0 font-pixel text-[0.6rem] leading-6 text-ink-muted">
                             {t.items} <span class="text-accent">x{group.items.length}</span>

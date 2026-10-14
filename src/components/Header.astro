@@ -54,7 +54,6 @@ const links = [
 
         <LanguageSwitch locale={locale} class="hidden md:flex" />
 
-        <!-- Debajo de 768px la nav y el idioma pasan a un menú lateral -->
         <button
             type="button"
             class="inline-flex min-h-11 items-center gap-3 border-4 border-line px-3 font-pixel text-[0.65rem] hover:text-accent md:hidden"
@@ -104,14 +103,12 @@ const links = [
 </header>
 
 <script>
-    // Al cambiar de idioma se conserva la sección en la que estaba el usuario
     document.querySelectorAll<HTMLAnchorElement>("[data-lang-switch]").forEach((link) => {
         link.addEventListener("click", () => {
             if (window.location.hash) link.hash = window.location.hash;
         });
     });
 
-    // Menú lateral: <dialog> nativo (Esc, foco atrapado y fondo inerte vienen del navegador)
     const menu = document.querySelector<HTMLDialogElement>("[data-menu]");
     if (menu) {
         const close = () => menu.close();
@@ -122,11 +119,9 @@ const links = [
         menu.querySelectorAll("[data-menu-link]").forEach((link) =>
             link.addEventListener("click", close),
         );
-        // Click en el fondo oscuro (fuera del panel)
         menu.addEventListener("click", (event) => {
             if (event.target === menu) close();
         });
-        // Si se agranda la ventana a desktop con el menú abierto, se cierra
         window.matchMedia("(min-width: 48rem)").addEventListener("change", (event) => {
             if (event.matches) close();
         });
