@@ -1,0 +1,27 @@
+name: CI
+
+on:
+    pull_request:
+    push:
+        branches: [main]
+
+concurrency:
+    group: ci-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    check:
+        name: Lint, formato y build
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v7
+
+            - uses: actions/setup-node@v7
+              with:
+                  node-version-file: .nvmrc
+
+            - name: Instalar dependencias
+              run: npm install --no-audit --no-fund
+
+            - name: Lint, Prettier y build
+              run: npm run check:all
