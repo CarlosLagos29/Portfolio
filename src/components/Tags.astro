@@ -1,13 +1,29 @@
 ---
 interface Props {
     items: string[];
+    /** En mobile muestra sólo los primeros N y un chip "+resto" (en desktop se ven todos). */
+    mobileLimit?: number;
 }
 
-const { items } = Astro.props;
+const { items, mobileLimit } = Astro.props;
+const rest = mobileLimit === undefined ? [] : items.slice(mobileLimit);
 ---
 
 <ul class="flex flex-wrap gap-2">
-    {items.map((item) => (
-        <li class="chip">{item}</li>
+    {items.map((item, index) => (
+        <li
+            class:list={[
+                "chip",
+                { "mobile:hidden": mobileLimit !== undefined && index >= mobileLimit },
+            ]}
+        >
+            {item}
+        </li>
     ))}
+    {rest.length > 0 && (
+        <li class="chip hidden text-ink-muted mobile:inline-block">
+            <span aria-hidden="true">+{rest.length}</span>
+            <span class="sr-only">{rest.join(", ")}</span>
+        </li>
+    )}
 </ul>
