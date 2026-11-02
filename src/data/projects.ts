@@ -3,8 +3,8 @@ import type { Project } from "../types";
 export const SHOW_PROJECTS = true;
 
 // Miniaturas: `npm run screenshot` captura cada proyecto con `screenshot: true` (desktop y mobile)
-// y `npm run screenshot -- <slug>` sólo el que coincida. Si la imagen no existe, la tarjeta
-// muestra el placeholder.
+// y `npm run screenshot -- <slug>` sólo el que coincida. Con `screenshot: false` el script no lo
+// toca y se usan las imágenes fijas de public/imgs/projects/. Sin imágenes, la tarjeta muestra el placeholder.
 export const PROJECTS: Project[] = [
     {
         title: "HealthCheckUrl",

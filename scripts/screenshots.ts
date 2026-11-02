@@ -17,7 +17,7 @@ const CHROME_CANDIDATES = [
 ];
 
 const SHOTS = [
-    { name: "desktop", viewport: { width: 1280, height: 800 } },
+    { name: "desktop", viewport: { width: 1280, height: 800, deviceScaleFactor: 2 } },
     {
         name: "mobile",
         viewport: { width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
@@ -59,7 +59,7 @@ try {
             await page.waitForFunction(() => document.fonts.status === "loaded", {
                 timeout: 20_000,
             });
-            await page.screenshot({ path: file as `${string}.webp`, type: "webp", quality: 85 });
+            await page.screenshot({ path: file as `${string}.webp`, type: "webp", quality: 90 });
             console.log(`Saved ${file}`);
             await page.close();
         }
