@@ -79,6 +79,7 @@ export const es = {
         subtitle: "Proyectos propios, fuera del trabajo.",
         remodel: "EN REMODELACION",
         noImage: "CAPTURA PROXIMAMENTE",
+        screenshotAlt: "Captura de",
         repo: "REPO",
         demo: "DEMO",
     },

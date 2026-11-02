@@ -80,6 +80,7 @@ export const en: Dictionary = {
         subtitle: "Personal projects, outside of work.",
         remodel: "UNDER REWORK",
         noImage: "SCREENSHOT COMING SOON",
+        screenshotAlt: "Screenshot of",
         repo: "REPO",
         demo: "DEMO",
     },

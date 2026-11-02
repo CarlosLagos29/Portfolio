@@ -1,9 +1,10 @@
 ---
 import SectionHeader from "./SectionHeader.astro";
 import Tags from "./Tags.astro";
-import { PROJECTS } from "../data/projects";
+import { existsSync } from "node:fs";
+import { PROJECTS, projectImages } from "../data/projects";
 import { getDictionary, localize } from "../i18n";
-import type { Locale } from "../types";
+import type { Locale, Project } from "../types";
 
 interface Props {
     locale: Locale;
@@ -11,6 +12,10 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getDictionary(locale).projects;
+
+// Se resuelve en el build: sin las dos capturas en public/ queda el placeholder
+const hasImages = (project: Project) =>
+    Object.values(projectImages(project)).every((path) => existsSync(`public${path}`));
 ---
 
 <section id="projects" aria-labelledby="projects-title" class="container-page py-16 mobile:py-10">
@@ -19,16 +24,26 @@ const t = getDictionary(locale).projects;
     <div class="grid gap-8 grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))]">
         {PROJECTS.map((project) => (
             <article class="panel reveal flex flex-col">
-                {project.image ? (
-                    <img
-                        src={project.image}
-                        alt=""
-                        loading="lazy"
-                        decoding="async"
-                        class="h-[180px] w-full border-b-4 border-line object-cover"
-                    />
+                {hasImages(project) ? (
+                    <picture>
+                        <source
+                            media="(max-width: 425px)"
+                            srcset={projectImages(project).mobile}
+                            width="780"
+                            height="1688"
+                        />
+                        <img
+                            src={projectImages(project).desktop}
+                            alt={`${t.screenshotAlt} ${project.title}`}
+                            width="1280"
+                            height="800"
+                            loading="lazy"
+                            decoding="async"
+                            class="aspect-16/10 w-full border-b-4 border-line object-cover object-top mobile:aspect-4/5"
+                        />
+                    </picture>
                 ) : (
-                    <div class="grid h-[180px] place-items-center border-b-4 border-line bg-avatar-bg bg-[repeating-linear-gradient(45deg,transparent_0_12px,#1d1b33_12px_24px)]">
+                    <div class="grid aspect-16/10 place-items-center border-b-4 border-line bg-avatar-bg bg-[repeating-linear-gradient(45deg,transparent_0_12px,#1d1b33_12px_24px)] mobile:aspect-4/5">
                         <span class="font-pixel text-[0.6rem] text-ink-muted">{t.noImage}</span>
                     </div>
                 )}

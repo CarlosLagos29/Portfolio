@@ -44,12 +44,19 @@ export interface Experience {
 
 export interface Project {
     title: string;
+    /** Nombre de las capturas y filtro de `npm run screenshot -- <slug>`. */
+    slug: string;
     description: Localized;
     tags: string[];
     repo?: string;
     demo?: string;
     remodel?: boolean;
-    image?: string;
+    /**
+     * true → `npm run screenshot` captura `demo` en desktop y mobile y guarda las imágenes en
+     * `public/imgs/projects/<slug>-desktop.webp` / `<slug>-mobile.webp`.
+     * Para capturar sólo este proyecto: `npm run screenshot -- <slug>`.
+     */
+    screenshot: boolean;
 }
 
 export interface Training {
