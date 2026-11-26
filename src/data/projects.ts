@@ -7,6 +7,18 @@ export const SHOW_PROJECTS = true;
 // toca y se usan las imágenes fijas de public/imgs/projects/. Sin imágenes, la tarjeta muestra el placeholder.
 export const PROJECTS: Project[] = [
     {
+        title: "Projects Monitor",
+        slug: "projects-monitor",
+        description: {
+            es: "Monitor de uptime para vigilar mis propios proyectos, abierto como demo: registrás URLs, se chequean cada 10 minutos y un dashboard muestra el estado, el uptime de 24 h y la latencia. Usa el motor de HealthCheckUrl, con acceso de invitado sin registro y un admin.",
+            en: "An uptime monitor to keep an eye on my own projects, open as a demo: register URLs, they get checked every 10 minutes, and a dashboard shows status, 24 h uptime and latency. Built on the HealthCheckUrl engine, with sign-up-free guest access and an admin.",
+        },
+        tags: ["Kotlin", "Spring Boot", "PostgreSQL", "Vue 3", "TypeScript", "Pinia", "Docker"],
+        repo: "https://github.com/CarlosLagos29/ProyectsMonitor",
+        demo: "https://proyectsmonitor.netlify.app/",
+        screenshot: true,
+    },
+    {
         title: "HealthCheckUrl",
         slug: "health-check-url",
         description: {
